@@ -2,7 +2,7 @@ import multer from 'multer'
 import {GridFsStorage} from 'multer-gridfs-storage'
 import crypto from 'crypto'
 import path from "path";
-const MONGO_URL = process.env.MONGO_URL || "mongodb://localhost/payment"
+import {MONGO_URL} from "../helpers/variables";
 const storage = new GridFsStorage({
     url: MONGO_URL,
     file: (request, file) => {
