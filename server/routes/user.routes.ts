@@ -8,6 +8,8 @@ const router = express.Router()
 router.post("/signup", upload.single('image'), async (req, res) => {
     const {error} = userValidator.registerValidator(req.body)
     if(error) return res.status(400).send({code: 400, message: error.details[0].message})
+    const checkEmail = await User.findOne({email: req.body.email})
+    if(checkEmail) return res.status(403).send({code: 403, message: "The email is already available"})
     const newUser = new User(req.body)
     if(req.file){
         newUser.image = req.file.filename
