@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 interface UserSchema {
     fullName: string;
+    image: string;
     birthday: Date;
     country: string;
     region: string;
