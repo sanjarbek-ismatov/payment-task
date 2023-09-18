@@ -27,3 +27,4 @@ router.post('/signing', async (req, res) => {
     const token = tokenGenerator(email, "email")
     res.setHeader('x-token', token).status(200).send({code: 200, message: "Login complete"})
 })
+export default router
