@@ -19,4 +19,4 @@ const userSchema = new mongoose.Schema({
         ref: "payments"
     }
 })
-const User = mongoose.model<UserSchema>("user", userSchema)
+export const User = mongoose.model<UserSchema>("user", userSchema)

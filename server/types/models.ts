@@ -12,6 +12,14 @@ interface UserSchema {
     carts: mongoose.Schema.Types.ObjectId[];
     payments: mongoose.Schema.Types.ObjectId[];
 }
+interface TransferSchema{
+    senderCard: string;
+    receiverCard: string;
+    amount: number;
+    date: string;
+    description?: string;
+}
 export type {
-    UserSchema
+    UserSchema,
+    TransferSchema
 }
