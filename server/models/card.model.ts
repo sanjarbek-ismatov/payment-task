@@ -1,4 +1,6 @@
 import mongoose from 'mongoose'
+import {CreditCardSchema} from "../types/models";
+
 const creditCardSchema = new mongoose.Schema({
     cardNumber: {
         type: String,
@@ -25,4 +27,4 @@ const creditCardSchema = new mongoose.Schema({
     },
 });
 
-export const CreditCard = mongoose.model('CreditCard', creditCardSchema);
+export const CreditCard = mongoose.model<CreditCardSchema>('CreditCard', creditCardSchema);

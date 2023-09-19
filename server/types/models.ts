@@ -10,8 +10,8 @@ interface UserSchema {
     phone: string;
     email: string;
     password: string;
-    carts: mongoose.Schema.Types.ObjectId[];
-    payments: mongoose.Schema.Types.ObjectId[];
+    cards: mongoose.Types.ObjectId[];
+    payments: mongoose.Types.ObjectId[];
 }
 interface TransferSchema{
     senderCard: string;
@@ -20,7 +20,14 @@ interface TransferSchema{
     date: string;
     description?: string;
 }
+interface CreditCardSchema{
+    cardNumber: string;
+    cardHolderName: string;
+    expirationDate: string;
+    cvv: string;
+}
 export type {
     UserSchema,
-    TransferSchema
+    TransferSchema,
+    CreditCardSchema
 }
