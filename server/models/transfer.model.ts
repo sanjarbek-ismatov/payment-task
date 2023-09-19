@@ -7,9 +7,19 @@ const transferSchema = new mongoose.Schema({
         ref: 'CreditCard',
         required: true,
     },
+    senderId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user',
+        required: true,
+    },
     receiverCard: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'CreditCard',
+        required: true,
+    },
+    receiverId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user',
         required: true,
     },
     amount: {

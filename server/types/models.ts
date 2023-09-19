@@ -15,7 +15,9 @@ interface UserSchema {
 }
 interface TransferSchema{
     senderCard: string;
+    senderId: mongoose.Types.ObjectId;
     receiverCard: string;
+    receiverId: mongoose.Types.ObjectId;
     amount: number;
     date: string;
     description?: string;

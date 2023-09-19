@@ -7,6 +7,7 @@ import bodyParser from "body-parser";
 import filesRoutes from "./files.routes";
 import userRoutes from "./user.routes";
 import cardRoutes from "./card.routes";
+import transferRoutes from "./transfer.routes";
 export default function(app: Express){
     app.use(bodyParser.json())
     app.use(bodyParser.urlencoded({extended: true}))
@@ -19,5 +20,6 @@ export default function(app: Express){
     app.use("/api/files", filesRoutes)
     app.use('/api/user', userRoutes)
     app.use("/api/card", cardRoutes)
+    app.use('/api/transfer', transferRoutes)
     app.use(errorMiddleware)
 }
