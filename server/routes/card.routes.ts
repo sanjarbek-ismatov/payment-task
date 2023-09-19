@@ -13,6 +13,7 @@ router.post('/add', authMiddleware, async (req: ExpressRequest, res) => {
         const {_id} = newCart
         newCart.cardHolderName = user?.fullName
         !user.cards.includes(_id) && user.cards.push(_id)
+        await user.save()
     }
     await newCart.save()
     res.status(201).send({code: 201, message: "Card got created!"})
