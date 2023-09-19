@@ -18,4 +18,12 @@ router.post('/add', authMiddleware, async (req: ExpressRequest, res) => {
     await newCart.save()
     res.status(201).send({code: 201, message: "Card got created!"})
 })
+router.delete("/delete", authMiddleware, async (req: ExpressRequest, res) => {
+    const {body: {_id}, user} = req
+    const deletedCard = await CreditCard.findByIdAndDelete(_id)
+    if(!deletedCard) return res.status(404).send({code: 404, message: "This credit card is not available"})
+    if(user) user.cards = user.cards.filter(card => card.toString() !== deletedCard._id.toString())
+    await user?.save()
+    res.status(204).send({code: 204, message: "The card has been deleted"})
+})
 export default router
