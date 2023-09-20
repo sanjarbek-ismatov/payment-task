@@ -29,4 +29,10 @@ router.post('/signing', async (req, res) => {
     const token = tokenGenerator(email, "email")
     res.setHeader('x-token', token).status(200).send({code: 200, message: "Login complete"})
 })
+router.get('/:email', async (req, res) => {
+    const {email} = req.params
+    const user = await User.findOne({email}).select("-password -payments")
+    if(!user) return res.status(404).send({code: 404, message: "User is not found"})
+    return res.status(200).send({code: 200, result: user})
+})
 export default router
