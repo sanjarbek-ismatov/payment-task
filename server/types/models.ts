@@ -1,6 +1,7 @@
-import mongoose from "mongoose";
+import {Types} from "mongoose";
 
 interface UserSchema {
+    _id: Types.ObjectId;
     fullName: string;
     image: string;
     birthday: Date;
@@ -10,18 +11,19 @@ interface UserSchema {
     phone: string;
     email: string;
     password: string;
-    cards: mongoose.Types.ObjectId[];
-    payments: mongoose.Types.ObjectId[];
+    cards: Types.ObjectId[];
+    payments: Types.ObjectId[];
 }
-interface TransferSchema{
+interface TransferSchema<T = Types.ObjectId>{
     senderCard: string;
-    senderId: mongoose.Types.ObjectId;
+    senderId: T;
     receiverCard: string;
-    receiverId: mongoose.Types.ObjectId;
+    receiverId: T;
     amount: number;
     date: string;
     description?: string;
 }
+type TransferResponse = TransferSchema<UserSchema>
 interface CreditCardSchema{
     cardNumber: string;
     cardHolderName: string;
@@ -31,5 +33,6 @@ interface CreditCardSchema{
 export type {
     UserSchema,
     TransferSchema,
-    CreditCardSchema
+    CreditCardSchema,
+    TransferResponse
 }
