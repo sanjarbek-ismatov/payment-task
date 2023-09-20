@@ -26,4 +26,9 @@ router.delete("/delete", authMiddleware, async (req: ExpressRequest, res) => {
     await user?.save()
     res.status(204).send({code: 204, message: "The card has been deleted"})
 })
+router.get('/:cardnumber', async (req, res) => {
+    const card = await CreditCard.findOne({cardNumber: req.params.cardnumber}).select('cardNumber cardHolderName')
+    if(!card) return res.status(404).send({code: 404, message: "Card is not available in our system"})
+    return res.status(200).send({code: 200, result: card})
+})
 export default router
