@@ -91,12 +91,13 @@ function TransferPage() {
             </label>
               <SubmitButton>Qidirish</SubmitButton>
           </form>
-
+            <SubmitButton>O'tkazish</SubmitButton>
           {/*<CreditCard>*/}
           {/*  <CreditCardInfo />*/}
           {/*</CreditCard>*/}
         </div>
       </div>
+
     </div>
   );
 }
