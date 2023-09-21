@@ -1,6 +1,5 @@
 import DropdownWithAvatar from "@/app/components/DropdownWithAvatar";
 import GradientButton from "@/app/components/GradientButton";
-import SideBar from "@/app/components/SideBar";
 import ToggleTheme from "../ToggleTheme";
 
 function LogoutIcon() {
@@ -22,10 +21,11 @@ function LogoutIcon() {
     </svg>
   );
 }
+
 function Navbar() {
   return (
     <>
-      <nav className="bg-white fixed top-0 z-50 w-full border-b dark:border-b-gray-800 dark:bg-gray-900">
+      <nav className="bg-white  z-50 w-full border-b dark:border-b-gray-800 dark:bg-gray-900">
         <div className=" flex flex-wrap items-center justify-between mx-auto p-4">
           <a href="https://flowbite.com/" className="flex items-center">
             <img
@@ -79,8 +79,8 @@ function Navbar() {
           </div>
         </div>
       </nav>
-      <SideBar />
     </>
   );
 }
+
 export default Navbar;
