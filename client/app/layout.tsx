@@ -31,7 +31,7 @@ export default function RootLayout({
         </header>
         <main className="flex">
           <SideBar />
-          <div>{children}</div>
+          <div className='w-full h-full'>{children}</div>
         </main>
         <Script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js" />
       </body>

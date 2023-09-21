@@ -3,6 +3,7 @@ import CreditCard from "@/app/components/CreditCard";
 import CreditCardInfo from "@/app/components/CreditCardInfo";
 import Modal from "@/app/components/Modal";
 import { useState } from "react";
+import H2 from "@/app/components/H2";
 
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
@@ -10,9 +11,7 @@ export default function Home() {
     <>
       <Modal showModal={showModal} setShowModal={setShowModal} />
       <div className="p-4">
-        <h2 className="text-4xl font-extrabold dark:text-white">
-          Mening kartalarim
-        </h2>
+        <H2>Yangi karta qo'shish</H2>
         <div className="my-12 flex">
           <CreditCard onClick={() => setShowModal(!showModal)} />
           <CreditCard>
