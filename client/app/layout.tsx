@@ -2,6 +2,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import Navbar from "@/app/components/Navbar";
 import SideBar from "@/app/components/SideBar";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,6 +33,7 @@ export default function RootLayout({
           <SideBar />
           <div>{children}</div>
         </main>
+        <Script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js" />
       </body>
     </html>
   );

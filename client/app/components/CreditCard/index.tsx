@@ -1,8 +1,14 @@
-import { ReactNode } from "react";
+import { ComponentProps, ReactNode } from "react";
 
-function CreditCard({ children }: { children?: ReactNode }) {
+function CreditCard({
+  children,
+  ...rest
+}: { children?: ReactNode } & ComponentProps<"div">) {
   return (
-    <div className="block m-3 max-w-sm w-[400px] h-[250px] p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+    <div
+      {...rest}
+      className="block m-3 max-w-sm w-[400px] h-[250px] p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+    >
       {children ? (
         children
       ) : (
