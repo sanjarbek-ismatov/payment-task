@@ -10,6 +10,7 @@ const useTheme = () => {
   }, []);
   useEffect(() => {
     document.documentElement.className = theme;
+    localStorage.setItem("theme", theme);
   }, [theme]);
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
