@@ -1,8 +1,13 @@
+"use client";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Navbar from "@/app/components/Navbar";
 import SideBar from "@/app/components/SideBar";
 import Script from "next/script";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,6 +16,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+    const router = useRouter()
+    useEffect(() => {
+        router.push('/auth')
+    }, []);
+    const queryClient = new QueryClient()
   return (
     <html className="dark" lang="en">
       <head>
@@ -26,6 +36,7 @@ export default function RootLayout({
       <body
         className={`${inter.className} min-h-screen h-full w-full dark:bg-gray-900`}
       >
+      <QueryClientProvider client={queryClient} >
         <header>
           <Navbar />
         </header>
@@ -33,6 +44,8 @@ export default function RootLayout({
           <SideBar />
           <div className='w-full h-full'>{children}</div>
         </main>
+          <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
         <Script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js" />
       </body>
     </html>
