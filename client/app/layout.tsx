@@ -1,5 +1,6 @@
 "use client";
 import "./globals.css";
+import "react-toastify/dist/ReactToastify.css";
 import { Inter } from "next/font/google";
 import Navbar from "@/app/components/Navbar";
 import SideBar from "@/app/components/SideBar";
@@ -16,11 +17,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-    const router = useRouter()
-    useEffect(() => {
-        router.push('/auth')
-    }, []);
-    const queryClient = new QueryClient()
+  const router = useRouter();
+  useEffect(() => {
+    router.push("/auth");
+  }, []);
+  const queryClient = new QueryClient();
   return (
     <html className="dark" lang="en">
       <head>
@@ -36,16 +37,16 @@ export default function RootLayout({
       <body
         className={`${inter.className} min-h-screen h-full w-full dark:bg-gray-900`}
       >
-      <QueryClientProvider client={queryClient} >
-        <header>
-          <Navbar />
-        </header>
-        <main className="flex">
-          <SideBar />
-          <div className='w-full h-full'>{children}</div>
-        </main>
+        <QueryClientProvider client={queryClient}>
+          <header>
+            <Navbar />
+          </header>
+          <main className="flex">
+            <SideBar />
+            <div className="w-full h-full">{children}</div>
+          </main>
           <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
+        </QueryClientProvider>
         <Script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js" />
       </body>
     </html>

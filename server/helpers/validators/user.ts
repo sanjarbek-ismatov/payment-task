@@ -4,8 +4,6 @@ const registerValidator = (body: any) => {
         fullName: Joi.string().required(),
         birthday: Joi.date().required(),
         country: Joi.string().required(),
-        region: Joi.string().required(),
-        location: Joi.string().required(),
         phone: Joi.string().required(),
         email: Joi.string().email().required(),
         password: Joi.string().required(),

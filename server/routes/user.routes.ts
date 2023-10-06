@@ -18,7 +18,7 @@ router.post("/signup", upload.single('image'), async (req, res) => {
     await newUser.save()
     res.status(201).send({code: 201, message: "User has been created"})
 })
-router.post('/signing', async (req, res) => {
+router.post('/signing', upload.none(), async (req, res) => {
     const {error} = userValidator.loginValidator(req.body)
     const {email, password} = req.body
     if(error) return res.status(400).send({code: 400, message: error.details[0].message})

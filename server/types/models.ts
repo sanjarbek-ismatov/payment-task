@@ -6,8 +6,6 @@ interface UserSchema {
     image: string;
     birthday: Date;
     country: string;
-    region: string;
-    location: string;
     phone: string;
     email: string;
     password: string;
