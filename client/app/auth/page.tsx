@@ -19,23 +19,30 @@ function AuthPage() {
       body,
     });
     const data = await res.json();
-    if (res.ok) return data;
+    const token = res.headers.get("x-token");
+    if (res.ok) return { data, token };
     throw new Error(data.message);
   });
   const formSubmit = useCallback((event: FormEvent) => {
     event.preventDefault();
-    toast.promise(
-      () =>
-        mutation.mutateAsync(
-          new FormData(event.currentTarget as HTMLFormElement)
-        ),
-      {
-        success: "Bajarildi",
-        error: "Qayta urinib ko'ring",
-        pending: "Bajarilmoqda...",
-      },
-      toastOptions
-    );
+    toast
+      .promise(
+        async () => {
+          const promise = mutation.mutateAsync(
+            new FormData(event.currentTarget as HTMLFormElement)
+          );
+          const response = await promise;
+          response.token && localStorage.setItem("x-token", response.token);
+          return promise;
+        },
+        {
+          success: "Bajarildi",
+          error: "Qayta urinib ko'ring",
+          pending: "Bajarilmoqda...",
+        },
+        toastOptions
+      )
+      .then(() => window.location.reload());
   }, []);
   return (
     <>
