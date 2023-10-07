@@ -39,8 +39,8 @@ function AuthComponent() {
             setError(response.data.message);
             if (response.token)
               rememberToken
-                ? localStorage.setItem("token", response.token)
-                : sessionStorage.setItem("token", response.token);
+                ? localStorage.setItem("x-token", response.token)
+                : sessionStorage.setItem("x-token", response.token);
             return promise;
           },
           {
