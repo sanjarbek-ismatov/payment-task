@@ -1,18 +1,18 @@
 "use client";
 import H2 from "@/app/components/H2";
-import DefaultInput from "../components/DefaultInput";
-import CheckboxWithLabel from "../components/CheckboxWithLabel";
+import DefaultInput from "@/app/components/DefaultInput";
+import CheckboxWithLabel from "@/app/components/CheckboxWithLabel";
 import Link from "next/link";
-import DefaultButton from "../components/DefaultButton";
-import FormCard from "../components/FormCard";
-import LinkArrowRightIcon from "../components/LinkArrowRightIcon";
+import DefaultButton from "@/app/components/DefaultButton";
+import FormCard from "@/app/components/FormCard";
+import LinkArrowRightIcon from "@/app/components/LinkArrowRightIcon";
 import { useMutation } from "react-query";
 import { FormEvent, useCallback, useState } from "react";
-import Toast from "../components/Toast";
+import Toast from "@/app/components/Toast";
 import { toast } from "react-toastify";
-import { toastOptions } from "../data/variables";
+import { toastOptions } from "@/app/data/variables";
 
-function AuthPage() {
+function AuthComponent() {
   const [error, setError] = useState<string | undefined>();
   const [rememberToken, setRememberToken] = useState(false);
   const mutation = useMutation(async (body: BodyInit) => {
@@ -94,4 +94,4 @@ function AuthPage() {
   );
 }
 
-export default AuthPage;
+export default AuthComponent;

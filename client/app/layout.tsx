@@ -5,10 +5,10 @@ import { Inter } from "next/font/google";
 import Navbar from "@/app/components/Navbar";
 import SideBar from "@/app/components/SideBar";
 import Script from "next/script";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { useAuth } from "./hooks/useAuth";
+import AuthComponent from "./components/AuthComponent";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,10 +17,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const router = useRouter();
-  useEffect(() => {
-    router.push("/auth");
-  }, []);
+  const [auth] = useAuth();
   const queryClient = new QueryClient();
   return (
     <html className="dark" lang="en">
@@ -43,7 +40,9 @@ export default function RootLayout({
           </header>
           <main className="flex">
             <SideBar />
-            <div className="w-full h-full">{children}</div>
+            <div className="w-full h-full">
+              {auth ? children : <AuthComponent />}
+            </div>
           </main>
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
