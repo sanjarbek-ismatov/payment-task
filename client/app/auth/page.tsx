@@ -7,12 +7,13 @@ import DefaultButton from "../components/DefaultButton";
 import FormCard from "../components/FormCard";
 import LinkArrowRightIcon from "../components/LinkArrowRightIcon";
 import { useMutation } from "react-query";
-import { FormEvent, useCallback } from "react";
+import { FormEvent, useCallback, useState } from "react";
 import Toast from "../components/Toast";
 import { toast } from "react-toastify";
 import { toastOptions } from "../data/variables";
 
 function AuthPage() {
+  const [error, setError] = useState<string | undefined>();
   const mutation = useMutation(async (body: BodyInit) => {
     const res = await fetch("http://localhost:4000/api/user/signing", {
       method: "POST",
@@ -21,10 +22,11 @@ function AuthPage() {
     const data = await res.json();
     const token = res.headers.get("x-token");
     if (res.ok) return { data, token };
-    throw new Error(data.message);
+    return Promise.reject(data.message);
   });
-  const formSubmit = useCallback((event: FormEvent) => {
+  const formSubmit = useCallback(async (event: FormEvent) => {
     event.preventDefault();
+
     toast
       .promise(
         async () => {
@@ -32,12 +34,13 @@ function AuthPage() {
             new FormData(event.currentTarget as HTMLFormElement)
           );
           const response = await promise;
+          setError(response.data.message);
           response.token && localStorage.setItem("x-token", response.token);
           return promise;
         },
         {
           success: "Bajarildi",
-          error: "Qayta urinib ko'ring",
+          error: error ?? "Nimadir xato ketdi",
           pending: "Bajarilmoqda...",
         },
         toastOptions
