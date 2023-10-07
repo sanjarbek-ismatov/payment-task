@@ -11,11 +11,11 @@ const userSchema: Schema<UserSchema> = new mongoose.Schema({
     password: {type: String, required: true},
     cards: {
         type: [mongoose.SchemaTypes.ObjectId],
-        ref: "carts"
+        ref: "CreditCard"
     },
     payments: {
         type: [mongoose.SchemaTypes.ObjectId],
-        ref: "payments"
+        ref: "Transfer"
     }
 })
 export const User = mongoose.model<UserSchema>("user", userSchema)
