@@ -25,32 +25,35 @@ function AuthComponent() {
     if (res.ok) return { data, token };
     return Promise.reject(data.message);
   });
-  const formSubmit = useCallback(async (event: FormEvent) => {
-    event.preventDefault();
+  const formSubmit = useCallback(
+    async (event: FormEvent) => {
+      event.preventDefault();
 
-    toast
-      .promise(
-        async () => {
-          const promise = mutation.mutateAsync(
-            new FormData(event.currentTarget as HTMLFormElement)
-          );
-          const response = await promise;
-          setError(response.data.message);
-          if (response.token)
-            rememberToken
-              ? localStorage.setItem("token", response.token)
-              : sessionStorage.setItem("token", response.token);
-          return promise;
-        },
-        {
-          success: "Bajarildi",
-          error: error ?? "Nimadir xato ketdi",
-          pending: "Bajarilmoqda...",
-        },
-        toastOptions
-      )
-      .then(() => window.location.reload());
-  }, []);
+      toast
+        .promise(
+          async () => {
+            const promise = mutation.mutateAsync(
+              new FormData(event.currentTarget as HTMLFormElement)
+            );
+            const response = await promise;
+            setError(response.data.message);
+            if (response.token)
+              rememberToken
+                ? localStorage.setItem("token", response.token)
+                : sessionStorage.setItem("token", response.token);
+            return promise;
+          },
+          {
+            success: "Bajarildi",
+            error: error ?? "Nimadir xato ketdi",
+            pending: "Bajarilmoqda...",
+          },
+          toastOptions
+        )
+        .then(() => window.location.reload());
+    },
+    [error, mutation, rememberToken]
+  );
   return (
     <>
       <div className="w-full pt-8">

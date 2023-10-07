@@ -17,7 +17,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [auth] = useAuth();
+  const token = useAuth();
   const queryClient = new QueryClient();
   return (
     <html className="dark" lang="en">
@@ -41,7 +41,7 @@ export default function RootLayout({
           <main className="flex">
             <SideBar />
             <div className="w-full h-full">
-              {auth ? children : <AuthComponent />}
+              {token ? children : <AuthComponent />}
             </div>
           </main>
           <ReactQueryDevtools initialIsOpen={false} />

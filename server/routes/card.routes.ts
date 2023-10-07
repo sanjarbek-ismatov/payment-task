@@ -1,10 +1,11 @@
-import express from 'express'
+import express, { Response } from 'express'
 import authMiddleware from "../middlewares/auth.middleware";
 import cartValidator from '../helpers/validators/card'
 import {CreditCard} from "../models/card.model";
 import {ExpressRequest} from "../types/express";
+import { upload } from '../models/gridfs.model';
 const router = express.Router()
-router.post('/add', authMiddleware, async (req: ExpressRequest, res) => {
+router.post('/add', [upload.none(), authMiddleware], async (req: ExpressRequest, res: Response) => {
     const {error} = cartValidator.creditCartValidator(req.body)
     if(error) return res.status(400).send({code: 400, message: error.details[0].message})
     const newCart = new CreditCard(req.body)

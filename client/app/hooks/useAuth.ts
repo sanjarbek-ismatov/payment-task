@@ -2,11 +2,11 @@
 import { useLayoutEffect, useState } from "react";
 
 const useAuth = () => {
-  const [auth, setAuth] = useState<boolean>(false);
+  const [token, setToken] = useState<string | null>();
   useLayoutEffect(() => {
-    const token = localStorage.getItem("token") ?? sessionStorage.getItem('token');
-    setAuth(Boolean(token))
+    const token = localStorage.getItem("token") || sessionStorage.getItem('token');
+    setToken(token)
   }, []);
-  return [auth, setAuth]
+  return token
 };
 export {useAuth}

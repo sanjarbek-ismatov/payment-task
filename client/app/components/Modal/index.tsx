@@ -1,5 +1,17 @@
 "use client";
-import { Dispatch, SetStateAction } from "react";
+import { toastOptions } from "@/app/data/variables";
+import {
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useCallback,
+  useState,
+} from "react";
+import { useMutation, useQueryClient } from "react-query";
+import { toast } from "react-toastify";
+import DefaultInput from "../DefaultInput";
+import Toast from "../Toast";
+import { useAuth } from "@/app/hooks/useAuth";
 
 function Modal({
   showModal,
@@ -8,6 +20,48 @@ function Modal({
   showModal: boolean;
   setShowModal: Dispatch<SetStateAction<boolean>>;
 }) {
+  const [error, setError] = useState<string | undefined>();
+  const queryClient = useQueryClient();
+  const token = useAuth();
+  const mutation = useMutation(async (body: BodyInit) => {
+    const res = await fetch("http://localhost:4000/api/card/add", {
+      method: "POST",
+      body,
+      headers: {
+        ["x-token"]: token || "",
+      },
+    });
+    const data = await res.json();
+    if (res.ok) return data;
+    return Promise.reject(data.message);
+  });
+  const formSubmit = useCallback(
+    async (event: FormEvent) => {
+      event.preventDefault();
+      toast.promise(
+        async () => {
+          const promise = mutation.mutateAsync(
+            new FormData(event.currentTarget as HTMLFormElement),
+            {
+              onSuccess() {
+                queryClient.invalidateQueries("userinfo");
+              },
+            }
+          );
+          const response = await promise;
+          setError(response.data.message);
+          return promise;
+        },
+        {
+          success: "Bajarildi",
+          error: error ?? "Nimadir xato ketdi",
+          pending: "Bajarilmoqda...",
+        },
+        toastOptions
+      );
+    },
+    [error, mutation, queryClient]
+  );
   return (
     <>
       {/* Main modal */}
@@ -42,49 +96,37 @@ function Modal({
                   d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                 />
               </svg>
-              <span className="sr-only">Close modal</span>
+              <span className="sr-only">Yopish</span>
             </button>
             <div className="px-6 py-6 lg:px-8">
               <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
                 Yangi karta malumotlarini kiriting
               </h3>
-              <form className="space-y-6" action="#">
-                <div>
-                  <label
-                    htmlFor="number"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Karta raqami
-                  </label>
-                  <input
-                    type="number"
-                    name="cardNumber"
-                    id="number"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                    placeholder="0000 0000 0000 0000"
-                    required
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="cvv"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    CVV
-                  </label>
-                  <input
-                    type="number"
-                    name="cvv"
-                    id="cvv"
-                    placeholder="123"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                    required
-                  />
-                </div>
-                <input
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                  type="date"
+              <form
+                className="space-y-6"
+                onSubmit={(event) => {
+                  setShowModal(!showModal);
+                  formSubmit(event);
+                }}
+              >
+                <DefaultInput
+                  label="Karta raqami"
+                  type="number"
+                  name="cardNumber"
+                  placeholder="0000 0000 0000 0000"
+                  required
+                />
+                <DefaultInput
+                  label="CVV"
+                  type="number"
+                  name="cvv"
+                  placeholder="123"
+                  required
+                />
+                <DefaultInput
+                  label="Muddati"
                   name="expirationDate"
+                  type="date"
                   required
                 />
                 <button
@@ -98,6 +140,7 @@ function Modal({
           </div>
         </div>
       </div>
+      <Toast />
     </>
   );
 }
