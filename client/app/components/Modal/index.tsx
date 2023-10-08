@@ -20,7 +20,6 @@ function Modal({
   showModal: boolean;
   setShowModal: Dispatch<SetStateAction<boolean>>;
 }) {
-  const [error, setError] = useState<string | undefined>();
   const queryClient = useQueryClient();
   const token = useAuth();
   const mutation = useMutation(async (body: BodyInit) => {
@@ -44,23 +43,21 @@ function Modal({
             new FormData(event.currentTarget as HTMLFormElement),
             {
               onSuccess() {
-                queryClient.invalidateQueries("userinfo");
+                queryClient.invalidateQueries("user");
               },
             }
           );
-          const response = await promise;
-          setError(response.data.message);
           return promise;
         },
         {
           success: "Bajarildi",
-          error: error ?? "Nimadir xato ketdi",
+          error: "Nimadir xato ketdi",
           pending: "Bajarilmoqda...",
         },
         toastOptions
       );
     },
-    [error, mutation, queryClient]
+    [mutation, queryClient]
   );
   return (
     <>

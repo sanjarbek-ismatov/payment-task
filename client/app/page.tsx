@@ -8,7 +8,7 @@ import { useQuery } from "react-query";
 import type { UserInterface } from "./types";
 export default function Home() {
   const { data } = useQuery<{ result: UserInterface; code: number }>(
-    "userinfo",
+    "user",
     async () => {
       const token = localStorage.getItem("x-token");
       const response = await fetch("http://localhost:4000/api/user/me", {
