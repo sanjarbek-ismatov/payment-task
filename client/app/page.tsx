@@ -4,10 +4,8 @@ import CreditCardInfo from "@/app/components/CreditCardInfo";
 import Modal from "@/app/components/Modal";
 import { useState } from "react";
 import H2 from "@/app/components/H2";
-import { useMutation, useQuery } from "react-query";
-import type { ServerResponse, UserInterface } from "./types";
-import { getToken } from "./utils/getToken";
-import { mutationFunc } from "./utils/mutationFunctions";
+import { useQuery } from "react-query";
+import type { UserInterface } from "./types";
 const userInfoQuery = async () => {
   const token = localStorage.getItem("x-token");
   const response = await fetch("http://localhost:4000/api/user/me", {
@@ -22,9 +20,7 @@ export default function Home() {
     "user",
     userInfoQuery
   );
-  const mutation = useMutation(
-    mutationFunc("http://localhost:4000/api/card/delete", "DELETE", true)
-  );
+
   const [showModal, setShowModal] = useState(false);
   return (
     <>
@@ -34,10 +30,11 @@ export default function Home() {
         <div className="my-12 flex flex-wrap">
           <CreditCard onClick={() => setShowModal(!showModal)} />
           {data?.result.cards?.map((card) => (
-            <CreditCard key={card.cardNumber} deletable>
+            <CreditCard key={card.cardNumber}>
               <CreditCardInfo
                 cardNumber={card.cardNumber}
                 cardHolderName={card.cardHolderName}
+                deletable
               />
             </CreditCard>
           ))}

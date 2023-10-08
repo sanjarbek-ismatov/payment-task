@@ -14,9 +14,9 @@ router.post('/add', [upload.none(), authMiddleware], async (req: ExpressRequest,
         const {_id} = newCart
         newCart.cardHolderName = user?.fullName
         !user.cards.includes(_id) && user.cards.push(_id)
-        // await user.save()
+        await user.save()
     }
-    // await newCart.save()
+    await newCart.save()
     res.status(201).send({code: 201, message: "Card got created!"})
 })
 router.delete("/delete", authMiddleware, async (req: ExpressRequest, res) => {
