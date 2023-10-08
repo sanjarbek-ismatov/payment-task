@@ -4,20 +4,26 @@ import CreditCardInfo from "@/app/components/CreditCardInfo";
 import Modal from "@/app/components/Modal";
 import { useState } from "react";
 import H2 from "@/app/components/H2";
-import { useQuery } from "react-query";
-import type { UserInterface } from "./types";
+import { useMutation, useQuery } from "react-query";
+import type { ServerResponse, UserInterface } from "./types";
+import { getToken } from "./utils/getToken";
+import { mutationFunc } from "./utils/mutationFunctions";
+const userInfoQuery = async () => {
+  const token = localStorage.getItem("x-token");
+  const response = await fetch("http://localhost:4000/api/user/me", {
+    headers: {
+      ["x-token"]: token as string,
+    },
+  });
+  return (await response.json()) as { result: UserInterface; code: number };
+};
 export default function Home() {
   const { data } = useQuery<{ result: UserInterface; code: number }>(
     "user",
-    async () => {
-      const token = localStorage.getItem("x-token");
-      const response = await fetch("http://localhost:4000/api/user/me", {
-        headers: {
-          ["x-token"]: token as string,
-        },
-      });
-      return (await response.json()) as { result: UserInterface; code: number };
-    }
+    userInfoQuery
+  );
+  const mutation = useMutation(
+    mutationFunc("http://localhost:4000/api/card/delete", "DELETE", true)
   );
   const [showModal, setShowModal] = useState(false);
   return (
@@ -28,7 +34,7 @@ export default function Home() {
         <div className="my-12 flex flex-wrap">
           <CreditCard onClick={() => setShowModal(!showModal)} />
           {data?.result.cards?.map((card) => (
-            <CreditCard key={card.cardNumber}>
+            <CreditCard key={card.cardNumber} deletable>
               <CreditCardInfo
                 cardNumber={card.cardNumber}
                 cardHolderName={card.cardHolderName}

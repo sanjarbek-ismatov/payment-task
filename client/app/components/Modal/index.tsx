@@ -1,17 +1,11 @@
 "use client";
 import { toastOptions } from "@/app/data/variables";
-import {
-  Dispatch,
-  FormEvent,
-  SetStateAction,
-  useCallback,
-  useState,
-} from "react";
+import { Dispatch, FormEvent, SetStateAction, useCallback } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 import DefaultInput from "../DefaultInput";
 import Toast from "../Toast";
-import { useAuth } from "@/app/hooks/useAuth";
+import { mutationFunc } from "@/app/utils/mutationFunctions";
 
 function Modal({
   showModal,
@@ -21,19 +15,9 @@ function Modal({
   setShowModal: Dispatch<SetStateAction<boolean>>;
 }) {
   const queryClient = useQueryClient();
-  const token = useAuth();
-  const mutation = useMutation(async (body: BodyInit) => {
-    const res = await fetch("http://localhost:4000/api/card/add", {
-      method: "POST",
-      body,
-      headers: {
-        ["x-token"]: token || "",
-      },
-    });
-    const data = await res.json();
-    if (res.ok) return data;
-    return Promise.reject(data.message);
-  });
+  const mutation = useMutation(
+    mutationFunc("http://localhost:4000/api/card/add", "POST", true)
+  );
   const formSubmit = useCallback(
     async (event: FormEvent) => {
       event.preventDefault();

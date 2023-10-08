@@ -14,4 +14,9 @@ interface CreditCardInterface{
     cardNumber: number;
     cardHolderName: string;
 }
-export type {UserInterface, CreditCardInterface}
+interface ServerResponse<R = null>{
+    code: number;
+    result?: R,
+    message: string;
+}
+export type {UserInterface, CreditCardInterface, ServerResponse}
