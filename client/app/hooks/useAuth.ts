@@ -2,10 +2,10 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 
 const useAuth = () => {
-  const [token, setToken] = useState<string | null>();
+  const [token, setToken] = useState<boolean>(false);
   useEffect(() => {
     const token = localStorage.getItem("x-token") || sessionStorage.getItem('x-token');
-    setToken(token)
+    setToken(Boolean(token))
   }, []);
   return token
 };
