@@ -42,11 +42,11 @@ function SideBar() {
                 >
                   <path
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="m1 14 3-3m-3 3 3 3m-3-3h16v-3m2-7-3 3m3-3-3-3m3 3H3v3"
-                  ></path>
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M1 14l3-3m-3 3l3 3m-3-3h16v-3m2-7l-3 3m3-3l-3-3m3 3H3v3"
+                  />
                 </svg>
                 <span className="ml-3">Pul o'tkazish</span>
               </Link>
@@ -85,11 +85,11 @@ function SideBar() {
                 >
                   <path
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M7.75 4H19M7.75 4a2.25 2.25 0 0 1-4.5 0m4.5 0a2.25 2.25 0 0 0-4.5 0M1 4h2.25m13.5 6H19m-2.25 0a2.25 2.25 0 0 1-4.5 0m4.5 0a2.25 2.25 0 0 0-4.5 0M1 10h11.25m-4.5 6H19M7.75 16a2.25 2.25 0 0 1-4.5 0m4.5 0a2.25 2.25 0 0 0-4.5 0M1 16h2.25"
-                  ></path>
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M7.75 4H19M7.75 4a2.25 2.25 0 01-4.5 0m4.5 0a2.25 2.25 0 00-4.5 0M1 4h2.25m13.5 6H19m-2.25 0a2.25 2.25 0 01-4.5 0m4.5 0a2.25 2.25 0 00-4.5 0M1 10h11.25m-4.5 6H19M7.75 16a2.25 2.25 0 01-4.5 0m4.5 0a2.25 2.25 0 00-4.5 0M1 16h2.25"
+                  />
                 </svg>
                 <span className="ml-3">Sozlamalar</span>
               </Link>

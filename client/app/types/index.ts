@@ -1,4 +1,4 @@
-interface UserInterface {
+interface UserInterface <C = CreditCardInterface, P = string>{
     _id: string;
     fullName: string;
     image: string;
@@ -7,7 +7,11 @@ interface UserInterface {
     phone: string;
     email: string;
     password: string;
-    cards: string[];
-    payments: string[];
+    cards: C[];
+    payments: P[];
 }
-export type {UserInterface}
+interface CreditCardInterface{
+    cardNumber: number;
+    cardHolderName: string;
+}
+export type {UserInterface, CreditCardInterface}

@@ -13,11 +13,11 @@ function LogoutIcon() {
     >
       <path
         stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"
-      ></path>
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M1 8h11m0 0L8 4m4 4l-4 4m4-11h3a2 2 0 012 2v10a2 2 0 01-2 2h-3"
+      />
     </svg>
   );
 }
@@ -46,7 +46,6 @@ function Navbar() {
           >
             <span className="sr-only">Open main menu</span>
             <svg
-              className="w-5 h-5"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -54,9 +53,9 @@ function Navbar() {
             >
               <path
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
                 d="M1 1h15M1 7h15M1 13h15"
               />
             </svg>

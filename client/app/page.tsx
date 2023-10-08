@@ -25,11 +25,14 @@ export default function Home() {
       <Modal showModal={showModal} setShowModal={setShowModal} />
       <div className="p-4">
         <H2>Yangi karta qo'shish</H2>
-        <div className="my-12 flex">
+        <div className="my-12 flex flex-wrap">
           <CreditCard onClick={() => setShowModal(!showModal)} />
           {data?.result.cards?.map((card) => (
-            <CreditCard key={card}>
-              <CreditCardInfo />
+            <CreditCard key={card.cardNumber}>
+              <CreditCardInfo
+                cardNumber={card.cardNumber}
+                cardHolderName={card.cardHolderName}
+              />
             </CreditCard>
           ))}
         </div>
