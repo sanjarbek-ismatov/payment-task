@@ -1,3 +1,5 @@
+import { UseMutationResult } from "react-query";
+
 interface UserInterface <C = CreditCardInterface, P = string>{
     _id: string;
     fullName: string;
@@ -11,6 +13,7 @@ interface UserInterface <C = CreditCardInterface, P = string>{
     payments: P[];
 }
 interface CreditCardInterface{
+    _id: string;
     cardNumber: number;
     cardHolderName: string;
 }
@@ -19,4 +22,5 @@ interface ServerResponse<R = null>{
     result?: R,
     message: string;
 }
-export type {UserInterface, CreditCardInterface, ServerResponse}
+type Mutation = UseMutationResult<ServerResponse<null>, unknown, BodyInit, unknown>
+export type {UserInterface, CreditCardInterface, ServerResponse, Mutation}
