@@ -8,19 +8,25 @@ import { QueryClient, UseMutationResult } from "react-query";
 export  const mutationFunc = (url: string, method: string, withToken: boolean) => {
     return async (body: BodyInit) => {
       const token = getToken();
+    
       const res = await fetch(url, {
         method,
         body,
         ...(withToken && {
           headers: {
             ["x-token"]: token || "",
+            ["Content-Type"]: body instanceof FormData ? "multipart/form-data" : "application/json"
           },
         }),
       
       });
-      const data = await res.json();
-      if (res.ok) return data as ServerResponse;
-      return Promise.reject(data.message);
+      try{
+         const data = await res.json();
+         if (res.ok) return data as ServerResponse;
+         return Promise.reject(data.message);
+      } catch(ex){
+          return {} as ServerResponse
+      }
     };
   };
 
