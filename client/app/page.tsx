@@ -5,7 +5,7 @@ import Modal from "@/app/components/Modal";
 import { useState } from "react";
 import H2 from "@/app/components/H2";
 import { useQuery } from "react-query";
-import type { UserInterface } from "./types";
+import type { ServerResponse, UserInterface } from "./types";
 const userInfoQuery = async () => {
   const token = localStorage.getItem("x-token");
   const response = await fetch("http://localhost:4000/api/user/me", {
@@ -13,10 +13,10 @@ const userInfoQuery = async () => {
       ["x-token"]: token as string,
     },
   });
-  return (await response.json()) as { result: UserInterface; code: number };
+  return (await response.json()) as ServerResponse<UserInterface>;
 };
 export default function Home() {
-  const { data } = useQuery<{ result: UserInterface; code: number }>(
+  const { data } = useQuery<ServerResponse<UserInterface>>(
     "user",
     userInfoQuery
   );
@@ -29,13 +29,9 @@ export default function Home() {
         <H2>Yangi karta qo'shish</H2>
         <div className="my-12 flex flex-wrap">
           <CreditCard onClick={() => setShowModal(!showModal)} />
-          {data?.result.cards?.map((card) => (
+          {data?.result?.cards?.map((card) => (
             <CreditCard key={card.cardNumber}>
-              <CreditCardInfo
-                cardNumber={card.cardNumber}
-                cardHolderName={card.cardHolderName}
-                deletable
-              />
+              <CreditCardInfo card={card} deletable />
             </CreditCard>
           ))}
         </div>

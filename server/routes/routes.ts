@@ -1,4 +1,4 @@
-import {Express} from "express";
+import {Express, json} from "express";
 import errorMiddleware from "../middlewares/error.middleware";
 import cors from 'cors'
 import morgan from "morgan";
@@ -9,7 +9,7 @@ import userRoutes from "./user.routes";
 import cardRoutes from "./card.routes";
 import transferRoutes from "./transfer.routes";
 export default function(app: Express){
-    app.use(bodyParser.json())
+    app.use(json())
     app.use(bodyParser.urlencoded({extended: true}))
     app.use(cors({
         optionsSuccessStatus: 200,

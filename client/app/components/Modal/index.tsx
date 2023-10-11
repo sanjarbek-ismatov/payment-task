@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 import DefaultInput from "../DefaultInput";
 import Toast from "../Toast";
-import { mutationFunc } from "@/app/utils/mutationFunctions";
+import { formSubmit, mutationFunc } from "@/app/utils/mutationFunctions";
 
 function Modal({
   showModal,
@@ -18,31 +18,8 @@ function Modal({
   const mutation = useMutation(
     mutationFunc("http://localhost:4000/api/card/add", "POST", true)
   );
-  const formSubmit = useCallback(
-    async (event: FormEvent) => {
-      event.preventDefault();
-      toast.promise(
-        async () => {
-          const promise = mutation.mutateAsync(
-            new FormData(event.currentTarget as HTMLFormElement),
-            {
-              onSuccess() {
-                queryClient.invalidateQueries("user");
-              },
-            }
-          );
-          return promise;
-        },
-        {
-          success: "Bajarildi",
-          error: "Nimadir xato ketdi",
-          pending: "Bajarilmoqda...",
-        },
-        toastOptions
-      );
-    },
-    [mutation, queryClient]
-  );
+
+  const submit = formSubmit(mutation, queryClient, "user");
   return (
     <>
       {/* Main modal */}
@@ -87,7 +64,7 @@ function Modal({
                 className="space-y-6"
                 onSubmit={(event) => {
                   setShowModal(!showModal);
-                  formSubmit(event);
+                  submit(event);
                 }}
               >
                 <DefaultInput
