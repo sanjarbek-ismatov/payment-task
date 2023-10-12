@@ -2,6 +2,7 @@ import { SubmitButton } from "@/app/transfer/page";
 import H2 from "@/app/components/H2";
 import GradientButton from "@/app/components/GradientButton";
 import Link from "next/link";
+import ProfileList from "@/app/components/ProfileList";
 
 function TransferUserPage() {
   return (
@@ -22,6 +23,7 @@ function TransferUserPage() {
             Pochta orqali
           </label>
           <SubmitButton>Qidirish</SubmitButton>
+          <ProfileList />
         </form>
         <form className="relative z-0 m-3 w-full">
           <input
@@ -62,4 +64,4 @@ function TransferUserPage() {
     </div>
   );
 }
-export default TransferUserPage
+export default TransferUserPage;
