@@ -1,9 +1,5 @@
 import { CreditCardInterface } from "@/app/types";
-import {
-  formSubmit,
-  mutationFunc,
-  submitData,
-} from "@/app/utils/mutationFunctions";
+import { mutationFunc, submitData } from "@/app/utils/mutationFunctions";
 import { useMutation, useQueryClient } from "react-query";
 
 function CreditCardInfo({
