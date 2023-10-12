@@ -44,16 +44,21 @@ export const formSubmit = (
     event.preventDefault();
     toast.promise(
       async () => {
-        const promise = mutation.mutateAsync(
-          new FormData(event.currentTarget as HTMLFormElement),
-          {
-            onSuccess() {
-              queries.forEach((query) => {
-                queryClient.invalidateQueries(query);
-              });
-            },
-          }
-        );
+        const formData = new FormData(event.currentTarget as HTMLFormElement);
+        const currentFormElement = event.currentTarget as HTMLFormElement;
+        if (currentFormElement.cardNumber) {
+          formData.set(
+            "cardNumber",
+            currentFormElement.cardNumber.value.split(" ").join("")
+          );
+        }
+        const promise = mutation.mutateAsync(formData, {
+          onSuccess() {
+            queries.forEach((query) => {
+              queryClient.invalidateQueries(query);
+            });
+          },
+        });
         return promise;
       },
       {
