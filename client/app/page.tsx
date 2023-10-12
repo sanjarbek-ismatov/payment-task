@@ -6,15 +6,8 @@ import { useState } from "react";
 import H2 from "@/app/components/H2";
 import { useQuery } from "react-query";
 import type { ServerResponse, UserInterface } from "./types";
-const userInfoQuery = async () => {
-  const token = localStorage.getItem("x-token");
-  const response = await fetch("http://localhost:4000/api/user/me", {
-    headers: {
-      ["x-token"]: token as string,
-    },
-  });
-  return (await response.json()) as ServerResponse<UserInterface>;
-};
+import { userInfoQuery } from "./utils/queryFunctions";
+
 export default function Home() {
   const { data } = useQuery<ServerResponse<UserInterface>>(
     "user",

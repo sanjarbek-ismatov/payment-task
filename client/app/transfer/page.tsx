@@ -1,9 +1,13 @@
+"use client";
 import H2 from "@/app/components/H2";
-import CreditCard from "@/app/components/CreditCard";
-import CreditCardInfo from "@/app/components/CreditCardInfo";
 import { ComponentProps } from "react";
 import GradientButton from "@/app/components/GradientButton";
 import Link from "next/link";
+import { useQuery } from "react-query";
+import { userInfoQuery } from "../utils/queryFunctions";
+import CreditCard from "../components/CreditCard";
+import CreditCardInfo from "../components/CreditCardInfo";
+import { useSelectedCardContext } from "../context/selectedCard/context";
 
 export function SubmitButton({ children }: ComponentProps<"button">) {
   return (
@@ -17,34 +21,38 @@ export function SubmitButton({ children }: ComponentProps<"button">) {
 }
 
 function TransferPage() {
+  const { data } = useQuery("user", userInfoQuery);
+  const { cardId, setCardId } = useSelectedCardContext();
   return (
     <div className="p-4">
       <H2>Pul o'tkazish</H2>
-        <div>
-          <h4 className="m-3 dark:text-white text-gray-900">Kartani tanlash</h4>
-          <div className='flex flex-wrap'>
-            <div className='border-2 border-green-500 rounded'>
-          <CreditCard>
-            <CreditCardInfo />
-          </CreditCard>
+      <div>
+        <h4 className="m-3 dark:text-white text-gray-900">Kartani tanlash</h4>
+        <div className="flex flex-wrap w-full">
+          {data?.result?.cards.map((card) => (
+            <div
+              className={`
+                ${
+                  card._id === cardId
+                    ? "border-green-500"
+                    : "border-transparent"
+                } border-2 rounded`}
+              onClick={() => setCardId(card._id)}
+              key={card._id}
+            >
+              <CreditCard>
+                <CreditCardInfo card={card} />
+              </CreditCard>
             </div>
-          <CreditCard>
-            <CreditCardInfo />
-          </CreditCard>
-          <CreditCard>
-            <CreditCardInfo />
-          </CreditCard>
-            <CreditCard>
-              <CreditCardInfo />
-            </CreditCard>
-          </div>
-          <div className='flex justify-end'>
-            <Link href='/transfer/user'>
-            <GradientButton>Keyingisi</GradientButton>
-            </Link>
-          </div>
+          ))}
         </div>
+        <div className="flex justify-end">
+          <Link href="/transfer/user">
+            <GradientButton>Keyingisi</GradientButton>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
-export default TransferPage
+export default TransferPage;

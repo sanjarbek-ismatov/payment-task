@@ -5,10 +5,12 @@ import { Inter } from "next/font/google";
 import Navbar from "@/app/components/Navbar";
 import SideBar from "@/app/components/SideBar";
 import Script from "next/script";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { useAuth } from "./hooks/useAuth";
 import AuthComponent from "./components/AuthComponent";
+import SelectedCardProvider from "./context/selectedCard/provider";
+import { userInfoQuery } from "./utils/queryFunctions";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,16 +37,18 @@ export default function RootLayout({
         className={`${inter.className} min-h-screen h-full w-full dark:bg-gray-900`}
       >
         <QueryClientProvider client={queryClient}>
-          <header>
-            <Navbar />
-          </header>
-          <main className="flex">
-            <SideBar />
-            <div className="w-full h-full">
-              {token ? children : <AuthComponent />}
-            </div>
-          </main>
-          <ReactQueryDevtools initialIsOpen={false} />
+          <SelectedCardProvider>
+            <header>
+              <Navbar />
+            </header>
+            <main className="flex">
+              <SideBar />
+              <div className="w-full h-full">
+                {token ? children : <AuthComponent />}
+              </div>
+            </main>
+            <ReactQueryDevtools initialIsOpen={false} />
+          </SelectedCardProvider>
         </QueryClientProvider>
         <Script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js" />
       </body>
