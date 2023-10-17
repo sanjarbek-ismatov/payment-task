@@ -7,7 +7,7 @@ import { useQuery } from "react-query";
 import { userInfoQuery } from "../utils/queryFunctions";
 import CreditCard from "../components/CreditCard";
 import CreditCardInfo from "../components/CreditCardInfo";
-import { useSelectedCardContext } from "@/app/context/transfer/context";
+import { useTransferContext } from "@/app/context/transfer/context";
 
 export function SubmitButton({ children }: ComponentProps<"button">) {
   return (
@@ -22,7 +22,7 @@ export function SubmitButton({ children }: ComponentProps<"button">) {
 
 function TransferPage() {
   const { data } = useQuery("user", userInfoQuery);
-  const { cardId, setCardId } = useSelectedCardContext();
+  const { transferDetails, setTransferDetails } = useTransferContext();
   return (
     <div className="p-4">
       <H2>Pul o'tkazish</H2>
@@ -33,11 +33,16 @@ function TransferPage() {
             <div
               className={`
                 ${
-                  card._id === cardId
+                  card._id === transferDetails?.selectedCardId
                     ? "border-green-500"
                     : "border-transparent"
                 } border-2 rounded`}
-              onClick={() => setCardId(card._id)}
+              onClick={() =>
+                setTransferDetails((prev) => ({
+                  ...prev,
+                  selectedCardId: card._id,
+                }))
+              }
               key={card._id}
             >
               <CreditCard>

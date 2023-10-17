@@ -1,12 +1,12 @@
-import { CreditCardInterface } from "@/app/types";
-import React, {createContext, useContext} from "react";
+import { TransferInterface } from "@/app/types";
+import React, { createContext, useContext } from "react";
 
 export const TransferContext = createContext(
   {} as {
-    transferDetails?: {selectedCardId?: string, selectedUserId?: string, amount?: number};
-    setTransferDetails?:  React.Dispatch<React.SetStateAction
-  },
+    transferDetails?: TransferInterface;
+    setTransferDetails: React.Dispatch<React.SetStateAction<TransferInterface>>;
+  }
 );
-export const useSelectedCardContext = () => {
-    return useContext(TransferContext);
+export const useTransferContext = () => {
+  return useContext(TransferContext);
 };
