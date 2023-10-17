@@ -9,7 +9,7 @@ import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { useAuth } from "./hooks/useAuth";
 import AuthComponent from "./components/AuthComponent";
-import SelectedCardProvider from "./context/selectedCard/provider";
+import TransferProvider from "@/app/context/transfer/provider";
 import { userInfoQuery } from "./utils/queryFunctions";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -37,7 +37,7 @@ export default function RootLayout({
         className={`${inter.className} min-h-screen h-full w-full dark:bg-gray-900`}
       >
         <QueryClientProvider client={queryClient}>
-          <SelectedCardProvider>
+          <TransferProvider>
             <header>
               <Navbar />
             </header>
@@ -48,7 +48,7 @@ export default function RootLayout({
               </div>
             </main>
             <ReactQueryDevtools initialIsOpen={false} />
-          </SelectedCardProvider>
+          </TransferProvider>
         </QueryClientProvider>
         <Script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js" />
       </body>

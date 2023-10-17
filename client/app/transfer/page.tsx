@@ -7,7 +7,7 @@ import { useQuery } from "react-query";
 import { userInfoQuery } from "../utils/queryFunctions";
 import CreditCard from "../components/CreditCard";
 import CreditCardInfo from "../components/CreditCardInfo";
-import { useSelectedCardContext } from "../context/selectedCard/context";
+import { useSelectedCardContext } from "@/app/context/transfer/context";
 
 export function SubmitButton({ children }: ComponentProps<"button">) {
   return (
