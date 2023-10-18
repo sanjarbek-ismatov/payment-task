@@ -1,15 +1,10 @@
 "use client";
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import DefaultInput from "../DefaultInput";
 import Toast from "../Toast";
 import { formSubmit, mutationFunc } from "@/app/utils/mutationFunctions";
+import handleInputChange from "@/app/utils/cardNumberSplit";
 
 function Modal({
   showModal,
@@ -23,16 +18,6 @@ function Modal({
   const mutation = useMutation(
     mutationFunc("http://localhost:4000/api/card/add", "POST", true)
   );
-  function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
-    const { value } = event.target;
-    const selectionStart = event.target.selectionStart ?? 0;
-    const withoutSpaces = value.replace(/\s/g, "");
-    const replaced = withoutSpaces.replace(/(\d{4})/g, "$1 ").trim();
-    setCardNumber(replaced);
-    const selectionPosition =
-      selectionStart + (replaced.length - withoutSpaces.length);
-    event.target.setSelectionRange(selectionPosition, selectionPosition);
-  }
   const submit = formSubmit(mutation, queryClient, "user");
   return (
     <>
@@ -87,7 +72,7 @@ function Modal({
                   name="cardNumber"
                   placeholder="0000 0000 0000 0000"
                   value={cardNumber}
-                  onChange={handleInputChange}
+                  onChange={(event) => handleInputChange(event)(setCardNumber)}
                   required
                 />
                 <DefaultInput
