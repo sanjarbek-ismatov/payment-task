@@ -6,6 +6,7 @@ import { passwordChecker, passwordGenerator } from "../helpers/passwordManager";
 import { tokenGenerator } from "../helpers/tokenGenerator";
 import authMiddleware from "../middlewares/auth.middleware";
 import { ExpressRequest } from "../types/express";
+import { CreditCard } from "../models/card.model";
 const router = express.Router();
 router.post("/signup", upload.single("image"), async (req, res) => {
   const { error } = userValidator.registerValidator(req.body);
@@ -53,10 +54,19 @@ router.get("/me", authMiddleware, async (req: ExpressRequest, res) => {
     .status(200)
     .send({ code: 200, result: await user?.populate("cards payments") });
 });
-router.get("/", async (req, res) => {
+router.post("/", async (req, res) => {
+  if (req.body.type === "card") {
+    const card = await CreditCard.findOne({
+      cardNumber: req.body.card,
+    }).select("cardNumber cardHolderName");
+    if (!card)
+      return res.status(404).send({ code: 404, message: "Card is not found" });
+    return res.status(200).send({ code: 200, result: card });
+  }
+  delete req.body.type;
   const user = await User.findOne(req.body)
     .select("-password -payments")
-    .populate("cards");
+    .populate({ path: "cards", select: "-cvv -expirationDate" });
   if (!user)
     return res.status(404).send({ code: 404, message: "User is not found" });
   return res.status(200).send({ code: 200, result: user });
