@@ -16,6 +16,7 @@ interface CreditCardInterface {
   _id: string;
   cardNumber: number;
   cardHolderName: string;
+  cardHolderId: string;
 }
 interface ServerResponse<R = null> {
   code: number;

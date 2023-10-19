@@ -10,6 +10,7 @@ import { mutationFunc, submitData } from "@/app/utils/mutationFunctions";
 import { CreditCardInterface, UserInterface } from "@/app/types";
 import CreditCard from "@/app/components/CreditCard";
 import CreditCardInfo from "@/app/components/CreditCardInfo";
+import { useTransferContext } from "@/app/context/transfer/context";
 function FloatingLabelInput({
   label,
   ...props
@@ -35,6 +36,7 @@ function TransferUserPage() {
   const [query, setQuery] = useState("");
   const [type, setType] = useState("");
   const [data, setData] = useState<UserInterface | CreditCardInterface>();
+  const { transferDetails, setTransferDetails } = useTransferContext();
   const mutation = useMutation(
     mutationFunc<any, UserInterface | CreditCardInterface>(
       "http://localhost:4000/api/user",
@@ -68,7 +70,7 @@ function TransferUserPage() {
             placeholder=" "
             required
           />
-          <SubmitButton>Qidirish</SubmitButton>
+          <SubmitButton type="submit">Qidirish</SubmitButton>
         </form>
         <div>
           {data &&
@@ -76,7 +78,15 @@ function TransferUserPage() {
               <>
                 <H2>Topilgan karta:</H2>
                 <div className="my-3">
-                  <CreditCard>
+                  <CreditCard
+                    onClick={() =>
+                      setTransferDetails((prev) => ({
+                        ...prev,
+                        selectedCardId: data._id,
+                        selectedUserId: data.cardHolderId,
+                      }))
+                    }
+                  >
                     <CreditCardInfo card={data} />
                   </CreditCard>
                 </div>
@@ -86,7 +96,16 @@ function TransferUserPage() {
                 <H2>{data.fullName}ning mavjud kartalari:</H2>
                 <div className="flex my-3">
                   {data.cards.map((card) => (
-                    <CreditCard key={card._id}>
+                    <CreditCard
+                      onClick={() =>
+                        setTransferDetails((prev) => ({
+                          ...prev,
+                          selectedCardId: card._id,
+                          selectedUserId: card.cardHolderId,
+                        }))
+                      }
+                      key={card._id}
+                    >
                       <CreditCardInfo card={card} />
                     </CreditCard>
                   ))}
