@@ -7,6 +7,9 @@ import { ComponentProps, useState } from "react";
 import handleInputChange from "@/app/utils/cardNumberSplit";
 import { useMutation } from "react-query";
 import { mutationFunc, submitData } from "@/app/utils/mutationFunctions";
+import { CreditCardInterface, UserInterface } from "@/app/types";
+import CreditCard from "@/app/components/CreditCard";
+import CreditCardInfo from "@/app/components/CreditCardInfo";
 function FloatingLabelInput({
   label,
   ...props
@@ -31,9 +34,15 @@ function FloatingLabelInput({
 function TransferUserPage() {
   const [query, setQuery] = useState("");
   const [type, setType] = useState("");
+  const [data, setData] = useState<UserInterface | CreditCardInterface>();
   const mutation = useMutation(
-    mutationFunc<any>("http://localhost:4000/api/user", "POST", false)
+    mutationFunc<any, UserInterface | CreditCardInterface>(
+      "http://localhost:4000/api/user",
+      "POST",
+      false
+    )
   );
+  console.log(data);
   return (
     <div className="p-4">
       <H2>Qabul qiluvchini tanlang</H2>
@@ -42,16 +51,18 @@ function TransferUserPage() {
           className="relative z-0 my-12 w-[600px] mx-auto"
           onSubmit={(event) => {
             event.preventDefault();
-            mutation.mutateAsync(
-              JSON.stringify({
-                type,
-                [type]: query.split(" ").join(""),
-              })
-            );
+            mutation
+              .mutateAsync(
+                JSON.stringify({
+                  type,
+                  [type]: query.split(" ").join(""),
+                })
+              )
+              .then((data) => setData(data.result));
           }}
         >
           <FloatingLabelInput
-            label="Karta raqami, Email, Ism familiya"
+            label="Karta raqami, Email orqali"
             type="text"
             value={query}
             onChange={(event) => handleInputChange(event)(setQuery, setType)}
@@ -60,6 +71,18 @@ function TransferUserPage() {
           />
           <SubmitButton>Qidirish</SubmitButton>
         </form>
+        {data &&
+          ("cardNumber" in data ? (
+            <CreditCard>
+              <CreditCardInfo card={data} />
+            </CreditCard>
+          ) : (
+            data.cards.map((card) => (
+              <CreditCard key={card._id}>
+                <CreditCardInfo card={card} />
+              </CreditCard>
+            ))
+          ))}
       </div>
       <div className="flex justify-end">
         <Link href="/transfer/amount">

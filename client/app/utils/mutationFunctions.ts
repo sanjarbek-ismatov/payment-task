@@ -5,7 +5,7 @@ import { Mutation, ServerResponse } from "../types";
 import { getToken } from "./getToken";
 import { QueryClient } from "react-query";
 
-export function mutationFunc<B extends BodyInit>(
+export function mutationFunc<B extends BodyInit, R = null>(
   url: string,
   method: string,
   withToken: boolean
@@ -26,10 +26,10 @@ export function mutationFunc<B extends BodyInit>(
     });
     try {
       const data = await res.json();
-      if (res.ok) return data as ServerResponse;
+      if (res.ok) return data as ServerResponse<R>;
       return Promise.reject(data.message);
     } catch (ex) {
-      return {} as ServerResponse;
+      return {} as ServerResponse<R>;
     }
   };
 }
