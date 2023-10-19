@@ -11,7 +11,7 @@ function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
     const replaced = withoutSpaces.replace(/(\d{4})/g, "$1 ").trim();
     const withNumbers = replaced.match(/(\d{4}\s){3}\d{4}/);
     const withEmail = value.match(/[\d\w]+\@\w+\.\w+/gi);
-    let type = withNumbers ? "card" : withEmail ? "email" : "name";
+    let type = withNumbers ? "card" : withEmail ? "email" : "fullName";
     setType && setType(type);
     if (!withNumbers || replaced.length < 20) setCardNumber(replaced);
     const selectionPosition =
