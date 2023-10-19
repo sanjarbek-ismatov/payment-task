@@ -30,19 +30,27 @@ function FloatingLabelInput({
 }
 function TransferUserPage() {
   const [query, setQuery] = useState("");
+  const [type, setType] = useState("");
   const mutation = useMutation(
     mutationFunc<any>("http://localhost:4000/api/user", "GET", false)
   );
+  console.log(type);
   return (
     <div className="p-4">
       <H2>Qabul qiluvchini tanlang</H2>
       <div className="mt-3 w-full">
-        <form className="relative z-0 my-12 w-[600px] mx-auto">
+        <form
+          className="relative z-0 my-12 w-[600px] mx-auto"
+          onSubmit={(event) => {
+            event.preventDefault();
+            mutation.mutateAsync({});
+          }}
+        >
           <FloatingLabelInput
             label="Karta raqami, Email, Ism familiya"
             type="text"
             value={query}
-            onChange={(event) => handleInputChange(event)(setQuery)}
+            onChange={(event) => handleInputChange(event)(setQuery, setType)}
             placeholder=" "
             required
           />

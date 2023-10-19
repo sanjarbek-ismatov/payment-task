@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { toastOptions } from "../data/variables";
 import { Mutation, ServerResponse } from "../types";
 import { getToken } from "./getToken";
-import { QueryClient, UseMutationResult } from "react-query";
+import { QueryClient } from "react-query";
 
 export function mutationFunc<B extends BodyInit>(
   url: string,
