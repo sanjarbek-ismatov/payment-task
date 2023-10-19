@@ -42,13 +42,12 @@ function TransferUserPage() {
       false
     )
   );
-  console.log(data);
   return (
     <div className="p-4">
       <H2>Qabul qiluvchini tanlang</H2>
       <div className="mt-3 w-full">
         <form
-          className="relative z-0 my-12 w-[600px] mx-auto"
+          className="relative z-0 my-12 w-[600px]"
           onSubmit={(event) => {
             event.preventDefault();
             mutation
@@ -71,18 +70,30 @@ function TransferUserPage() {
           />
           <SubmitButton>Qidirish</SubmitButton>
         </form>
-        {data &&
-          ("cardNumber" in data ? (
-            <CreditCard>
-              <CreditCardInfo card={data} />
-            </CreditCard>
-          ) : (
-            data.cards.map((card) => (
-              <CreditCard key={card._id}>
-                <CreditCardInfo card={card} />
-              </CreditCard>
-            ))
-          ))}
+        <div>
+          {data &&
+            ("cardNumber" in data ? (
+              <>
+                <H2>Topilgan karta:</H2>
+                <div className="my-3">
+                  <CreditCard>
+                    <CreditCardInfo card={data} />
+                  </CreditCard>
+                </div>
+              </>
+            ) : (
+              <>
+                <H2>{data.fullName}ning mavjud kartalari:</H2>
+                <div className="flex my-3">
+                  {data.cards.map((card) => (
+                    <CreditCard key={card._id}>
+                      <CreditCardInfo card={card} />
+                    </CreditCard>
+                  ))}
+                </div>
+              </>
+            ))}
+        </div>
       </div>
       <div className="flex justify-end">
         <Link href="/transfer/amount">
