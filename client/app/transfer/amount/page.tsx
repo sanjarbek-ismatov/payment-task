@@ -1,21 +1,29 @@
+"use client"
 import { SubmitButton } from "@/app/transfer/page";
 import H2 from "@/app/components/H2";
 import CreditCard from "@/app/components/CreditCard";
 import CreditCardInfo from "@/app/components/CreditCardInfo";
+import {useTransferContext} from "@/app/context/transfer/context";
+import {useEffect} from "react";
+import {useQuery} from "react-query";
+import {cardInfoQuery} from "@/app/utils/queryFunctions";
 
 function AmountPage() {
+    const {transferDetails, setTransferDetails} = useTransferContext()
+    const {data: senderCard} = useQuery('user-card', cardInfoQuery(transferDetails?.senderCard || ""))
+   const {data: receiverCard} = useQuery('receiver-card', cardInfoQuery(transferDetails?.receiverCard || ""))
   return (
     <div className="flex">
       <div>
         <h4 className="m-3 dark:text-white text-gray-900">Sizning kartangiz</h4>
         <CreditCard>
-          <CreditCardInfo />
+          <CreditCardInfo card={senderCard?.result} />
         </CreditCard>
       </div>
       <div>
         <h4 className="m-3 dark:text-white text-gray-900">Sizning kartangiz</h4>
         <CreditCard>
-          <CreditCardInfo />
+          <CreditCardInfo card={receiverCard?.result} />
         </CreditCard>
       </div>
       <form className="m-3 w-[400px]">

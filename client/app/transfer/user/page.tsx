@@ -82,8 +82,8 @@ function TransferUserPage() {
                     onClick={() =>
                       setTransferDetails((prev) => ({
                         ...prev,
-                        selectedCardId: data._id,
-                        selectedUserId: data.cardHolderId,
+                        receiverId: data.cardHolderId,
+                          receiverCard: data?._id,
                       }))
                     }
                   >
@@ -97,11 +97,12 @@ function TransferUserPage() {
                 <div className="flex my-3">
                   {data.cards.map((card) => (
                     <CreditCard
+                        selected={card._id === transferDetails?.receiverCard}
                       onClick={() =>
                         setTransferDetails((prev) => ({
                           ...prev,
-                          selectedCardId: card._id,
-                          selectedUserId: card.cardHolderId,
+                            receiverId: card.cardHolderId,
+                            receiverCard: card._id,
                         }))
                       }
                       key={card._id}

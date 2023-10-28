@@ -24,8 +24,10 @@ interface ServerResponse<R = null> {
   message: string;
 }
 interface TransferInterface {
-  selectedCardId?: string;
-  selectedUserId?: string;
+  senderCard?: string;
+  receiverId?: string;
+  receiverCard?: string;
+  description?: string;
   amount?: number;
 }
 type Mutation = UseMutationResult<

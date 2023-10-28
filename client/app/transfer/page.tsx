@@ -30,25 +30,18 @@ function TransferPage() {
         <h4 className="m-3 dark:text-white text-gray-900">Kartani tanlash</h4>
         <div className="flex flex-wrap w-full">
           {data?.result?.cards.map((card) => (
-            <div
-              className={`
-                ${
-                  card._id === transferDetails?.selectedCardId
-                    ? "border-green-500"
-                    : "border-transparent"
-                } border-2 rounded`}
+            <CreditCard
+                selected={card._id === transferDetails?.senderCard}
               onClick={() =>
                 setTransferDetails((prev) => ({
                   ...prev,
-                  selectedCardId: card._id,
+                  senderCard: card._id,
                 }))
               }
               key={card._id}
             >
-              <CreditCard>
-                <CreditCardInfo card={card} />
-              </CreditCard>
-            </div>
+              <CreditCardInfo card={card} />
+            </CreditCard>
           ))}
         </div>
         <div className="flex justify-end">
