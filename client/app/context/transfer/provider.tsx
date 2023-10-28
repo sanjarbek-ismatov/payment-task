@@ -7,11 +7,11 @@ import { TransferInterface } from "@/app/types";
 function TransferProvider({ children }: { children: ReactNode }) {
   const [transferDetails, setTransferDetails] = useState<TransferInterface>({});
   const { data } = useQuery("user", userInfoQuery);
-  const id = data?.result?.cards[0]._id;
+  const id = data?.result?.cards[0]?._id;
   useEffect(() => {
     setTransferDetails((prev) => ({
       ...prev,
-      selectedCardId: id,
+      senderCard: id,
     }));
   }, [data, id]);
   return (
