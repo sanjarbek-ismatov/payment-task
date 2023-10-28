@@ -1,4 +1,4 @@
-import { ServerResponse, UserInterface } from "../types";
+import {CreditCardInterface, ServerResponse, UserInterface} from "../types";
 
 export const userInfoQuery = async () => {
   const token = localStorage.getItem("x-token");
@@ -9,3 +9,13 @@ export const userInfoQuery = async () => {
   });
   return (await response.json()) as ServerResponse<UserInterface>;
 };
+export const cardInfoQuery =  (id: string) => {
+  return async () => {
+    const response = await fetch(`http://localhost:4000/api/card/get`, {
+      headers: {
+        ['_id']: id
+      }
+    })
+    return await response.json() as ServerResponse<CreditCardInterface>
+  }
+}
