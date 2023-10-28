@@ -49,10 +49,9 @@ router.delete(
     res.status(204).send({ code: 204, message: "The card has been deleted" });
   }
 );
-router.get("/:cardnumber", async (req, res) => {
-  const card = await CreditCard.findOne({
-    cardNumber: req.params.cardnumber,
-  }).select("cardNumber cardHolderName");
+router.get("/get", async (req, res) => {
+    const {headers} = req
+    const card = await (headers['_id'] ? CreditCard.findById(headers['_id']) : CreditCard.findOne({cardNumber: req.headers['cardNumber']})).select("cardNumber cardHolderName");
   if (!card)
     return res
       .status(404)
