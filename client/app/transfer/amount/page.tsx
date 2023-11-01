@@ -1,52 +1,83 @@
-"use client"
+"use client";
 import { SubmitButton } from "@/app/transfer/page";
 import H2 from "@/app/components/H2";
 import CreditCard from "@/app/components/CreditCard";
 import CreditCardInfo from "@/app/components/CreditCardInfo";
-import {useTransferContext} from "@/app/context/transfer/context";
-import {useEffect} from "react";
-import {useQuery} from "react-query";
-import {cardInfoQuery} from "@/app/utils/queryFunctions";
+import { useTransferContext } from "@/app/context/transfer/context";
+import { useEffect, useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { cardInfoQuery } from "@/app/utils/queryFunctions";
+import { mutationFunc, submitData } from "@/app/utils/mutationFunctions";
+import GradientButton from "@/app/components/GradientButton";
+import TextArea from "@/app/components/TextArea";
 
 function AmountPage() {
-    const {transferDetails, setTransferDetails} = useTransferContext()
-    const {data: senderCard} = useQuery('user-card', cardInfoQuery(transferDetails?.senderCard || ""))
-   const {data: receiverCard} = useQuery('receiver-card', cardInfoQuery(transferDetails?.receiverCard || ""))
+  const mutation = useMutation(
+    mutationFunc("http://localhost:4000/api/transfer/new", "POST", true)
+  );
+  const queryClient = useQueryClient();
+  const submit = submitData.bind(null, mutation, queryClient);
+  const { transferDetails } = useTransferContext();
+  const { data: senderCard } = useQuery(
+    "user-card",
+    cardInfoQuery(transferDetails?.senderCard || "")
+  );
+  const { data: receiverCard } = useQuery(
+    "receiver-card",
+    cardInfoQuery(transferDetails?.receiverCard || "")
+  );
+  const [amount, setAmount] = useState(0);
+  const [description, setDescription] = useState("");
+  function handleSubmit() {
+    submit({ ...transferDetails, amount, description });
+  }
   return (
     <div className="flex">
-      <div>
-        <h4 className="m-3 dark:text-white text-gray-900">Sizning kartangiz</h4>
+      <div className="mt-6">
+        <h4 className="mx-3 dark:text-white text-gray-900">
+          Sizning kartangiz
+        </h4>
         <CreditCard>
           <CreditCardInfo card={senderCard?.result} />
         </CreditCard>
       </div>
-      <div>
-        <h4 className="m-3 dark:text-white text-gray-900">Sizning kartangiz</h4>
+      <div className="mt-6">
+        <h4 className="mx-3 dark:text-white text-gray-900">
+          Sizning kartangiz
+        </h4>
         <CreditCard>
           <CreditCardInfo card={receiverCard?.result} />
         </CreditCard>
       </div>
-      <form className="m-3 w-[400px]">
-        <div className="mb-6">
-          <label
-            htmlFor="large-input"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            O'tkazmoqchi bo'lgan summani kiriting
-          </label>
-          <div className="flex items-center">
-            <input
-              type="number"
-              id="large-input"
-              className="block text-4xl w-full mr-2 p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="0"
-            />
-            <H2>So'm</H2>
-          </div>
+      <div className="mt-6 w-[400px]">
+        <label
+          htmlFor="large-input"
+          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >
+          O'tkazmoqchi bo'lgan summani kiriting
+        </label>
+        <div className="flex items-center my-5">
+          <input
+            type="text"
+            id="large-input"
+            className="block outline-none text-2xl w-full mr-2 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="0"
+            value={amount}
+            onChange={(event) => {
+              setAmount(+event.target.value);
+            }}
+          />
+          <H2>So'm</H2>
         </div>
-        <SubmitButton>O'tkazish</SubmitButton>
-      </form>
+        <TextArea
+          label="Izoh"
+          placeholder="Bu yerga izoh kiritishing mumkin..."
+          value={description}
+          onChange={(event) => setDescription(event.target.value)}
+        />
+        <GradientButton onClick={handleSubmit}>O'tkazish</GradientButton>
+      </div>
     </div>
   );
 }
-export default AmountPage
+export default AmountPage;
