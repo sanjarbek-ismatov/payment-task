@@ -58,7 +58,7 @@ router.post("/", async (req, res) => {
   if (req.body.type === "card") {
     const card = await CreditCard.findOne({
       cardNumber: req.body.card,
-    }).select("cardNumber cardHolderName");
+    }).select("cardNumber cardHolderName cardHolderId");
     if (!card)
       return res.status(404).send({ code: 404, message: "Card is not found" });
     return res.status(200).send({ code: 200, result: card });

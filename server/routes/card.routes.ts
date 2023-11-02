@@ -35,7 +35,6 @@ router.delete(
       body: { _id },
       user,
     } = req;
-    console.log(req.body);
     const deletedCard = await CreditCard.findByIdAndDelete(_id);
     if (!deletedCard)
       return res
@@ -51,7 +50,7 @@ router.delete(
 );
 router.get("/get", async (req, res) => {
     const {headers} = req
-    const card = await (headers['_id'] ? CreditCard.findById(headers['_id']) : CreditCard.findOne({cardNumber: req.headers['cardNumber']})).select("cardNumber cardHolderName");
+    const card = await (headers['_id'] ? CreditCard.findById(headers['_id']) : CreditCard.findOne({cardNumber: req.headers['cardNumber']})).select("cardNumber cardHolderName cardHolderId");
   if (!card)
     return res
       .status(404)
