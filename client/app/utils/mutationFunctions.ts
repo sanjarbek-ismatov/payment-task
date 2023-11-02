@@ -75,7 +75,7 @@ export const submitData = (
   body?: any,
   ...queries: string[]
 ) => {
-  toast.promise(
+  return toast.promise(
     async () => {
       const promise = mutation.mutateAsync(JSON.stringify(body), {
         onSuccess() {
