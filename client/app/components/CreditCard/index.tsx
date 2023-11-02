@@ -7,10 +7,7 @@ function CreditCard({
 }: ComponentProps<"div"> & { selected?: boolean }) {
   return (
     <div
-      className={`
-                ${
-                  selected ? "border-green-500" : "border-transparent"
-                } border-2 rounded`}
+      className={`${selected ? "border-green-500" : "border-transparent"} border-2 rounded inline-block`}
     >
       <div
         {...rest}

@@ -79,13 +79,15 @@ function TransferUserPage() {
                 <H2>Topilgan karta:</H2>
                 <div className="my-3">
                   <CreditCard
+                      selected={data._id === transferDetails?.receiverCard}
                     onClick={() =>
-                      setTransferDetails((prev) => ({
-                        ...prev,
-                        receiverId: data.cardHolderId,
-                          receiverCard: data?._id,
-                      }))
+                        setTransferDetails((prev) => ({
+                            ...prev,
+                            receiverId: data.cardHolderId,
+                            receiverCard: data?._id,
+                        }))
                     }
+
                   >
                     <CreditCardInfo card={data} />
                   </CreditCard>
