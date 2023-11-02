@@ -24,6 +24,7 @@ interface ServerResponse<R = null> {
   message: string;
 }
 interface TransferInterface {
+  _id: string;
   senderCard?: string;
   receiverId?: string;
   receiverCard?: string;
