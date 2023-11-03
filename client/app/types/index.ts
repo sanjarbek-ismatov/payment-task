@@ -26,6 +26,7 @@ interface ServerResponse<R = null> {
 interface TransferInterface {
   _id: string;
   senderCard?: string;
+  senderId?: UserInterface;
   receiverId?: UserInterface;
   receiverCard?: string;
   description?: string;
