@@ -32,7 +32,7 @@ router.get("/get/:id", authMiddleware, async (req: ExpressRequest, res) => {
         transfer.senderId._id.toString() === _id ||
         transfer.receiverId._id.toString() === _id
     );
-
+    result.reverse()
     return res.status(200).send({ code: 200, result });
   }
   const transfer = await Transfer.findOne({ _id: id }).populate(

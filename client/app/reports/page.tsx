@@ -3,19 +3,52 @@ import { TransferInterface, UserInterface } from "@/app/types";
 import { useQuery } from "react-query";
 import { transfersQuery, userInfoQuery } from "@/app/utils/queryFunctions";
 import H2 from "@/app/components/H2";
-function ReportsPage() {
-  const { data: transfer } = useQuery("transfers", transfersQuery);
+import { useMemo } from "react";
+interface Sorting{
+  [year: string]: {
+    [month: string]: {
+      [date: string]: TransferInterface[];
+    }[]
+  }
+}
+function ReportsPage(){
+  const { data: transfers } = useQuery("transfers", transfersQuery);
   const { data: user } = useQuery("user", userInfoQuery);
+  const sortedByDates = useMemo(() => {
+    return transfers?.result?.reduce(
+      (previous, currentTransfer) => {
+        const transferDate = new Date(currentTransfer.date);
+        const prev = { ...previous };
+        const { day, month, year } = {
+          day: transferDate.getDate(),
+          month: transferDate.getMonth(),
+          year: transferDate.getFullYear(),
+        };
+        const currentYear = prev[year] ?? {};
+        const currentMonth = currentYear[month] ?? {};
+        const currentDay = currentMonth[day] ?? []
+        currentMonth[day] = currentDay
+        currentYear[month] = currentMonth;
+        prev[year] = currentYear;
+        return prev;
+      },
+      [] as Sorting[]
+    );
+  }, [transfers]);
   return (
     <ul className="relative m-5 border-l border-gray-200 dark:border-gray-700">
-      {transfer?.result?.length ? (
-        transfer.result.map((transfer) => (
-          <TransferDetails
-            user={user?.result}
-            transfer={transfer}
-            key={transfer._id}
-          />
-        ))
+      {transfers?.result?.length ? (
+        transfers.result.map((transfer) => {
+          const fromUser =
+            transfer.senderId?._id.toString() === user?.result?._id.toString();
+          return (
+            <TransferDetails
+              fromUser={fromUser}
+              transfer={transfer}
+              key={transfer._id}
+            />
+          );
+        })
       ) : (
         <H2>Hali birorta o'tkazma mavjud emas!</H2>
       )}
@@ -26,13 +59,12 @@ export default ReportsPage;
 
 function TransferDetails({
   transfer,
-  user,
+  fromUser,
 }: {
   transfer: TransferInterface;
-  user?: UserInterface;
+  fromUser: boolean;
 }) {
   const date = new Date(transfer.date);
-  const fromUser = transfer.senderId?._id.toString() === user?._id.toString();
   return (
     <li className="mb-10 ml-6">
       <span className="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
@@ -49,7 +81,11 @@ function TransferDetails({
           </time>
           <div className="text-sm font-normal text-gray-500 lex dark:text-gray-300">
             {transfer.receiverId?.fullName}ga{" "}
-            <span className="font-semibold text-gray-900 dark:text-white ">
+            <span
+              className={`font-semibold text-gray-900  ${
+                fromUser ? "text-red-600" : "text-green-600"
+              }`}
+            >
               {transfer.amount} so'm
             </span>{" "}
             pul o'tkazildi{" "}
