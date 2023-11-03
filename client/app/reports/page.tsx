@@ -20,6 +20,7 @@ function ReportsPage() {
 export default ReportsPage;
 
 function TransferDetails({ transfer }: { transfer: TransferInterface }) {
+  const date = new Date(transfer.date);
   return (
     <li className="mb-10 ml-6">
       <span className="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
@@ -32,16 +33,14 @@ function TransferDetails({ transfer }: { transfer: TransferInterface }) {
       <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-700 dark:border-gray-600">
         <div className="items-center justify-between mb-3 sm:flex">
           <time className="mb-1 text-xs font-normal text-gray-400 sm:order-last sm:mb-0">
-            2 hours ago
+            {date.toLocaleDateString()} {date.toLocaleTimeString()}
           </time>
           <div className="text-sm font-normal text-gray-500 lex dark:text-gray-300">
-            Thomas Lean commented on{" "}
-            <a
-              href="#"
-              className="font-semibold text-gray-900 dark:text-white hover:underline"
-            >
-              Flowbite Pro
-            </a>
+            {transfer.receiverId?.fullName}ga{" "}
+            <span className="font-semibold text-gray-900 dark:text-white ">
+              {transfer.amount} so'm
+            </span>{" "}
+            pul o'tkazildi{" "}
           </div>
         </div>
         <div className="p-3 text-xs italic font-normal text-gray-500 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-600 dark:border-gray-500 dark:text-gray-300">

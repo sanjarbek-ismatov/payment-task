@@ -26,10 +26,11 @@ interface ServerResponse<R = null> {
 interface TransferInterface {
   _id: string;
   senderCard?: string;
-  receiverId?: string;
+  receiverId?: UserInterface;
   receiverCard?: string;
   description?: string;
   amount?: number;
+  date: string;
 }
 type Mutation = UseMutationResult<
   ServerResponse<null>,
