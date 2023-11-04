@@ -5,6 +5,7 @@ import { transfersQuery, userInfoQuery } from "@/app/utils/queryFunctions";
 import H2 from "@/app/components/H2";
 import { useMemo } from "react";
 import { convertDayToWeekDay, convertIndexToMonth } from "../utils/dateToRead";
+import ImageComponent from "../components/Image";
 function ReportsPage() {
   const { data: transfers } = useQuery("transfers", transfersQuery);
   const { data: user } = useQuery("user", userInfoQuery);
@@ -94,13 +95,9 @@ function TransferDetails({
   return (
     <li className="mb-10 ml-6">
       <span className="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
-        <img
+        <ImageComponent
           className="rounded-full shadow-lg h-6 w-6 object-cover"
-          src={
-            image
-              ? `http://localhost:4000/api/files/get/${image}`
-              : "https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg"
-          }
+          url={image}
           alt={transfer.receiverId?.fullName}
         />
       </span>
