@@ -35,21 +35,25 @@ function ReportsPage() {
         Object.keys(sortedByDates).map((year) => {
           const currentYear = sortedByDates[year];
           return (
-            <div>
+            <div className="p-4">
               <H2>{year}yil</H2>
+              <hr className="my-4" />
               {Object.keys(currentYear).map((month) => {
                 const currentMonth = currentYear[month];
                 return (
-                  <div>
-                    <H2>{convertIndexToMonth(+month)} oyi</H2>
+                  <div className="p-2">
+                    <h4 className="text-white text-2xl">
+                      {convertIndexToMonth(+month)} oyi
+                    </h4>
+                    <hr className="my-4" />
                     {Object.keys(currentMonth).map((day) => {
                       const currentDay = currentMonth[day];
                       return (
                         <ul className="relative m-5 border-l border-gray-200 dark:border-gray-700">
-                          <H2>
+                          <h6 className="text-white m-3">
                             {day}-{convertIndexToMonth(+month).toLowerCase()},{" "}
                             {convertDayToWeekDay(currentDay[0].day)}
-                          </H2>
+                          </h6>
                           {currentDay.map(({ transfer }) => {
                             const fromUser =
                               transfer.senderId?._id.toString() ===
