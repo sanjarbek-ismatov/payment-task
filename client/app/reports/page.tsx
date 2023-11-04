@@ -1,5 +1,5 @@
 "use client";
-import { TransferInterface, UserInterface } from "@/app/types";
+import { TransferInterface } from "@/app/types";
 import { useQuery } from "react-query";
 import { transfersQuery, userInfoQuery } from "@/app/utils/queryFunctions";
 import H2 from "@/app/components/H2";

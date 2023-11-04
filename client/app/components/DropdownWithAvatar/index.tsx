@@ -1,7 +1,12 @@
 "use client";
+import { userInfoQuery } from "@/app/utils/queryFunctions";
 import { useState } from "react";
+import { useQuery } from "react-query";
+import ImageComponent from "../Image";
+import Link from "next/link";
 
 function DropdownWithAvatar() {
+  const { data } = useQuery("user", userInfoQuery);
   const [hiderClass, setHiderClass] = useState("hidden");
   return (
     <>
@@ -15,12 +20,12 @@ function DropdownWithAvatar() {
         type="button"
       >
         <span className="sr-only">Open user menu</span>
-        <img
-          className="w-8 h-8 mr-2 rounded-full"
-          src="https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-          alt="user photo"
+        <ImageComponent
+          url={data?.result?.image}
+          alt="user"
+          className="w-8 h-8 mr-2 rounded-full object-cover"
         />
-        Bonnie Green
+        {data?.result?.fullName}
         <svg
           className="w-2.5 h-2.5 ml-2.5"
           aria-hidden="true"
@@ -43,36 +48,44 @@ function DropdownWithAvatar() {
         className={`z-10 ${hiderClass} bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600`}
       >
         <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-          <div className="font-medium ">Pro User</div>
-          <div className="truncate">name@flowbite.com</div>
+          <div className="font-medium ">{data?.result?.phone}</div>
+          <div className="truncate">{data?.result?.email}</div>
         </div>
         <ul
           className="py-2 text-sm text-gray-700 dark:text-gray-200"
           aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton"
         >
           <li>
-            <a
-              href="#"
+            <Link
+              href="/"
               className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
             >
-              Dashboard
-            </a>
+              Bosh sahifa
+            </Link>
           </li>
           <li>
-            <a
-              href="#"
+            <Link
+              href="/transfer"
               className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
             >
-              Settings
-            </a>
+              Pul o'tkazish
+            </Link>
           </li>
           <li>
-            <a
-              href="#"
+            <Link
+              href="/reports"
               className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
             >
-              Earnings
-            </a>
+              Hisobotlar
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/settings"
+              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+            >
+              Sozlamalar
+            </Link>
           </li>
         </ul>
         <div className="py-2">
@@ -80,7 +93,7 @@ function DropdownWithAvatar() {
             href="#"
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
           >
-            Sign out
+            Chiqish
           </a>
         </div>
       </div>

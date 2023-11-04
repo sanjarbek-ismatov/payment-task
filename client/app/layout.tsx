@@ -5,12 +5,11 @@ import { Inter } from "next/font/google";
 import Navbar from "@/app/components/Navbar";
 import SideBar from "@/app/components/SideBar";
 import Script from "next/script";
-import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { useAuth } from "./hooks/useAuth";
 import AuthComponent from "./components/AuthComponent";
 import TransferProvider from "@/app/context/transfer/provider";
-import { userInfoQuery } from "./utils/queryFunctions";
 
 const inter = Inter({ subsets: ["latin"] });
 
