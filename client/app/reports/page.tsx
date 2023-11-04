@@ -4,55 +4,70 @@ import { useQuery } from "react-query";
 import { transfersQuery, userInfoQuery } from "@/app/utils/queryFunctions";
 import H2 from "@/app/components/H2";
 import { useMemo } from "react";
-interface Sorting{
-  [year: string]: {
-    [month: string]: {
-      [date: string]: TransferInterface[];
-    }[]
-  }
-}
-function ReportsPage(){
+type Sorting = any;
+function ReportsPage() {
   const { data: transfers } = useQuery("transfers", transfersQuery);
   const { data: user } = useQuery("user", userInfoQuery);
   const sortedByDates = useMemo(() => {
-    return transfers?.result?.reduce(
-      (previous, currentTransfer) => {
-        const transferDate = new Date(currentTransfer.date);
-        const prev = { ...previous };
-        const { day, month, year } = {
-          day: transferDate.getDate(),
-          month: transferDate.getMonth(),
-          year: transferDate.getFullYear(),
-        };
-        const currentYear = prev[year] ?? {};
-        const currentMonth = currentYear[month] ?? {};
-        const currentDay = currentMonth[day] ?? []
-        currentMonth[day] = currentDay
-        currentYear[month] = currentMonth;
-        prev[year] = currentYear;
-        return prev;
-      },
-      [] as Sorting[]
-    );
+    return transfers?.result?.reduce((previous, currentTransfer) => {
+      const transferDate = new Date(currentTransfer.date);
+      const prev = { ...previous };
+      const { day, month, year } = {
+        day: transferDate.getDate(),
+        month: transferDate.getMonth(),
+        year: transferDate.getFullYear(),
+      };
+
+      const currentYear = prev[year] ?? {};
+      const currentMonth = currentYear[month] ?? {};
+      const currentDay = currentMonth[day] ?? [];
+      currentDay.push(currentTransfer);
+      currentMonth[day] = currentDay;
+      currentYear[month] = currentMonth;
+      prev[year] = currentYear;
+      return prev;
+    }, {} as Record<string, Record<string, Record<string, TransferInterface[]>>>);
   }, [transfers]);
   return (
-    <ul className="relative m-5 border-l border-gray-200 dark:border-gray-700">
-      {transfers?.result?.length ? (
-        transfers.result.map((transfer) => {
-          const fromUser =
-            transfer.senderId?._id.toString() === user?.result?._id.toString();
+    <div>
+      {sortedByDates &&
+        Object.keys(sortedByDates).map((year) => {
+          const currentYear = sortedByDates[year];
           return (
-            <TransferDetails
-              fromUser={fromUser}
-              transfer={transfer}
-              key={transfer._id}
-            />
+            <div>
+              <H2>{year}yil</H2>
+              {Object.keys(currentYear).map((month) => {
+                const currentMonth = currentYear[month];
+                return (
+                  <div>
+                    <H2>{month} oy</H2>
+                    {Object.keys(currentMonth).map((day) => {
+                      const currentDay = currentMonth[day];
+                      return (
+                        <ul className="relative m-5 border-l border-gray-200 dark:border-gray-700">
+                          <H2>{day}</H2>
+                          {currentDay.map((transfer) => {
+                            const fromUser =
+                              transfer.senderId?._id.toString() ===
+                              user?.result?._id.toString();
+                            return (
+                              <TransferDetails
+                                fromUser={fromUser}
+                                transfer={transfer}
+                                key={transfer._id}
+                              />
+                            );
+                          })}
+                        </ul>
+                      );
+                    })}
+                  </div>
+                );
+              })}
+            </div>
           );
-        })
-      ) : (
-        <H2>Hali birorta o'tkazma mavjud emas!</H2>
-      )}
-    </ul>
+        })}
+    </div>
   );
 }
 export default ReportsPage;
