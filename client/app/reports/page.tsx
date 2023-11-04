@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import { transfersQuery, userInfoQuery } from "@/app/utils/queryFunctions";
 import H2 from "@/app/components/H2";
 import { useMemo } from "react";
-type Sorting = any;
+import { convertDayToWeekDay, convertIndexToMonth } from "../utils/dateToRead";
 function ReportsPage() {
   const { data: transfers } = useQuery("transfers", transfersQuery);
   const { data: user } = useQuery("user", userInfoQuery);
@@ -12,21 +12,22 @@ function ReportsPage() {
     return transfers?.result?.reduce((previous, currentTransfer) => {
       const transferDate = new Date(currentTransfer.date);
       const prev = { ...previous };
-      const { day, month, year } = {
+      const { day, month, year, dayOfTheWeek } = {
         day: transferDate.getDate(),
         month: transferDate.getMonth(),
         year: transferDate.getFullYear(),
+        dayOfTheWeek: transferDate.getDay(),
       };
 
       const currentYear = prev[year] ?? {};
       const currentMonth = currentYear[month] ?? {};
       const currentDay = currentMonth[day] ?? [];
-      currentDay.push(currentTransfer);
+      currentDay.push({ transfer: currentTransfer, day: dayOfTheWeek });
       currentMonth[day] = currentDay;
       currentYear[month] = currentMonth;
       prev[year] = currentYear;
       return prev;
-    }, {} as Record<string, Record<string, Record<string, TransferInterface[]>>>);
+    }, {} as Record<string, Record<string, Record<string, { transfer: TransferInterface; day: number }[]>>>);
   }, [transfers]);
   return (
     <div>
@@ -40,13 +41,16 @@ function ReportsPage() {
                 const currentMonth = currentYear[month];
                 return (
                   <div>
-                    <H2>{month} oy</H2>
+                    <H2>{convertIndexToMonth(+month)} oyi</H2>
                     {Object.keys(currentMonth).map((day) => {
                       const currentDay = currentMonth[day];
                       return (
                         <ul className="relative m-5 border-l border-gray-200 dark:border-gray-700">
-                          <H2>{day}</H2>
-                          {currentDay.map((transfer) => {
+                          <H2>
+                            {day}-{convertIndexToMonth(+month).toLowerCase()},{" "}
+                            {convertDayToWeekDay(currentDay[0].day)}
+                          </H2>
+                          {currentDay.map(({ transfer }) => {
                             const fromUser =
                               transfer.senderId?._id.toString() ===
                               user?.result?._id.toString();
