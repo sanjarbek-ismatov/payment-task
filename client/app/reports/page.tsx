@@ -88,13 +88,20 @@ function TransferDetails({
   fromUser: boolean;
 }) {
   const date = new Date(transfer.date);
+  const image = fromUser
+    ? transfer.receiverId?.image
+    : transfer.senderId?.image;
   return (
     <li className="mb-10 ml-6">
       <span className="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
         <img
-          className="rounded-full shadow-lg"
-          src="https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-          alt="Thomas Lean image"
+          className="rounded-full shadow-lg h-6 w-6 object-cover"
+          src={
+            image
+              ? `http://localhost:4000/api/files/get/${image}`
+              : "https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg"
+          }
+          alt={transfer.receiverId?.fullName}
         />
       </span>
       <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-700 dark:border-gray-600">
@@ -103,7 +110,9 @@ function TransferDetails({
             {date.toLocaleDateString()} {date.toLocaleTimeString()}
           </time>
           <div className="text-sm font-normal text-gray-500 lex dark:text-gray-300">
-            {transfer.receiverId?.fullName}ga{" "}
+            {fromUser
+              ? `${transfer.receiverId?.fullName}ga`
+              : `${transfer.senderId?.fullName} sizga`}{" "}
             <span
               className={`font-semibold text-gray-900  ${
                 fromUser ? "text-red-600" : "text-green-600"
@@ -111,7 +120,7 @@ function TransferDetails({
             >
               {transfer.amount} so'm
             </span>{" "}
-            pul o'tkazildi{" "}
+            pul o'tkaz{fromUser ? "il" : ""}di
           </div>
         </div>
         <div className="p-3 text-xs italic font-normal text-gray-500 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-600 dark:border-gray-500 dark:text-gray-300">

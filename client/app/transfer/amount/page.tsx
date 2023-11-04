@@ -11,30 +11,30 @@ import { mutationFunc, submitData } from "@/app/utils/mutationFunctions";
 import GradientButton from "@/app/components/GradientButton";
 import TextArea from "@/app/components/TextArea";
 import Toast from "@/app/components/Toast";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 
 function AmountPage() {
-  const router = useRouter()
+  const router = useRouter();
   const mutation = useMutation(
-    mutationFunc("http://localhost:4000/api/transfer/new", "POST", true),
+    mutationFunc("http://localhost:4000/api/transfer/new", "POST", true)
   );
   const queryClient = useQueryClient();
   const submit = submitData.bind(null, mutation, queryClient);
   const { transferDetails } = useTransferContext();
   const { data: senderCard } = useQuery(
     "user-card",
-    cardInfoQuery(transferDetails?.senderCard || ""),
+    cardInfoQuery(transferDetails?.senderCard || "")
   );
   const { data: receiverCard } = useQuery(
     "receiver-card",
-    cardInfoQuery(transferDetails?.receiverCard || ""),
+    cardInfoQuery(transferDetails?.receiverCard || "")
   );
   const [amount, setAmount] = useState(0);
   const [description, setDescription] = useState("");
   function handleSubmit() {
     submit({ ...transferDetails, amount, description }).then(() => {
-      router.replace('/reports')
-    })
+      router.replace("/reports");
+    });
   }
   return (
     <>
