@@ -7,11 +7,13 @@ function CreditCard({
 }: ComponentProps<"div"> & { selected?: boolean }) {
   return (
     <div
-      className={`${selected ? "border-green-500" : "border-transparent"} border-2 rounded inline-block`}
+      className={`${
+        selected ? "border-green-500" : "border-transparent"
+      } border-2 rounded md:inline-block block`}
     >
       <div
         {...rest}
-        className="group cursor-pointer block m-3 max-w-sm w-[400px] h-[250px] p-6 relative bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+        className="group cursor-pointer block m-3 max-w-sm md:w-[400px] w-full md:h-[250px] h-[300px] p-6 relative bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
       >
         {children ? (
           children
