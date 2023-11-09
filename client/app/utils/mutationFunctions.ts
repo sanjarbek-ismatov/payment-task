@@ -77,7 +77,7 @@ export const submitData = (
 ) => {
   return toast.promise(
     async () => {
-      const promise = mutation.mutateAsync(JSON.stringify(body), {
+      const promise = mutation.mutateAsync(body, {
         onSuccess() {
           queries.forEach((query) => {
             queryClient?.invalidateQueries(query);
