@@ -1,4 +1,4 @@
-import express from "express";
+import express, {Response} from "express";
 import { upload } from "../models/gridfs.model";
 import userValidator from "../helpers/validators/user";
 import { User } from "../models/user.model";
@@ -71,5 +71,14 @@ router.post("/", async (req, res) => {
     return res.status(404).send({ code: 404, message: "User is not found" });
   return res.status(200).send({ code: 200, result: user });
 });
-
+router.put('/update', [upload.single('image'), authMiddleware], async (req: ExpressRequest, res: Response) => {
+  const user = req.user
+  if(!user) return
+  if(req.file){
+    user.image = req.file.filename
+    console.log(req.file, user)
+  }
+  await user.save()
+  res.status(200).send({code: 200, message: "DONE"})
+})
 export default router;
