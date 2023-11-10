@@ -5,7 +5,7 @@ function DefaultInput({
   ...props
 }: { label?: string } & ComponentProps<"input">) {
   return (
-    <div className="mb-6">
+    <div className="mb-6 mx-2 w-full">
       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
         {label}
       </label>
