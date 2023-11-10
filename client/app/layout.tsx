@@ -10,6 +10,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { useAuth } from "./hooks/useAuth";
 import AuthComponent from "./components/AuthComponent";
 import TransferProvider from "@/app/context/transfer/provider";
+import React, {useMemo} from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const token = useAuth();
-  const queryClient = new QueryClient();
+  const queryClient = useMemo(() => new QueryClient(), [])
   return (
     <html className="dark" lang="en">
       <head>

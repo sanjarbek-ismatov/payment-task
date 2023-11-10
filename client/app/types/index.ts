@@ -4,7 +4,7 @@ interface UserInterface<C = CreditCardInterface, P = string> {
   _id: string;
   fullName: string;
   image: string;
-  birthday: Date;
+  birthday: string;
   country: string;
   phone: string;
   email: string;
