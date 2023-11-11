@@ -2,33 +2,43 @@
 import { TransferInterface } from "@/app/types";
 import { useQuery } from "react-query";
 import { transfersQuery, userInfoQuery } from "@/app/utils/queryFunctions";
-import H2 from "@/app/components/H2";
+import Text from "../components/Text";
 import { useMemo } from "react";
 import { convertDayToWeekDay, convertIndexToMonth } from "../utils/dateToRead";
 import ImageComponent from "../components/Image";
+
 function ReportsPage() {
   const { data: transfers } = useQuery("transfers", transfersQuery);
   const { data: user } = useQuery("user", userInfoQuery);
   const sortedByDates = useMemo(() => {
-    return transfers?.result?.reduce((previous, currentTransfer) => {
-      const transferDate = new Date(currentTransfer.date);
-      const prev = { ...previous };
-      const { day, month, year, dayOfTheWeek } = {
-        day: transferDate.getDate(),
-        month: transferDate.getMonth(),
-        year: transferDate.getFullYear(),
-        dayOfTheWeek: transferDate.getDay(),
-      };
+    return transfers?.result?.reduce(
+      (previous, currentTransfer) => {
+        const transferDate = new Date(currentTransfer.date);
+        const prev = { ...previous };
+        const { day, month, year, dayOfTheWeek } = {
+          day: transferDate.getDate(),
+          month: transferDate.getMonth(),
+          year: transferDate.getFullYear(),
+          dayOfTheWeek: transferDate.getDay(),
+        };
 
-      const currentYear = prev[year] ?? {};
-      const currentMonth = currentYear[month] ?? {};
-      const currentDay = currentMonth[day] ?? [];
-      currentDay.push({ transfer: currentTransfer, day: dayOfTheWeek });
-      currentMonth[day] = currentDay;
-      currentYear[month] = currentMonth;
-      prev[year] = currentYear;
-      return prev;
-    }, {} as Record<string, Record<string, Record<string, { transfer: TransferInterface; day: number }[]>>>);
+        const currentYear = prev[year] ?? {};
+        const currentMonth = currentYear[month] ?? {};
+        const currentDay = currentMonth[day] ?? [];
+        currentDay.push({ transfer: currentTransfer, day: dayOfTheWeek });
+        currentMonth[day] = currentDay;
+        currentYear[month] = currentMonth;
+        prev[year] = currentYear;
+        return prev;
+      },
+      {} as Record<
+        string,
+        Record<
+          string,
+          Record<string, { transfer: TransferInterface; day: number }[]>
+        >
+      >,
+    );
   }, [transfers]);
   return (
     <div>
@@ -37,7 +47,7 @@ function ReportsPage() {
           const currentYear = sortedByDates[year];
           return (
             <div className="p-4">
-              <H2>{year}yil</H2>
+              <Text>{year}yil</Text>
               <hr className="my-4" />
               {Object.keys(currentYear).map((month) => {
                 const currentMonth = currentYear[month];

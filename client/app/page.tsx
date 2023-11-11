@@ -3,7 +3,7 @@ import CreditCard from "@/app/components/CreditCard";
 import CreditCardInfo from "@/app/components/CreditCardInfo";
 import Modal from "@/app/components/Modal";
 import { useState } from "react";
-import H2 from "@/app/components/H2";
+import Text from "@/app/components/Text";
 import { useQuery } from "react-query";
 import type { ServerResponse, UserInterface } from "./types";
 import { userInfoQuery } from "./utils/queryFunctions";
@@ -11,7 +11,7 @@ import { userInfoQuery } from "./utils/queryFunctions";
 export default function Home() {
   const { data } = useQuery<ServerResponse<UserInterface>>(
     "user",
-    userInfoQuery
+    userInfoQuery,
   );
 
   const [showModal, setShowModal] = useState(false);
@@ -19,7 +19,7 @@ export default function Home() {
     <>
       <Modal showModal={showModal} setShowModal={setShowModal} />
       <div className="p-4">
-        <H2>Yangi karta qo'shish</H2>
+        <Text>Yangi karta qo'shish</Text>
         <div className="my-12 md:flex flex-wrap w-full">
           <CreditCard onClick={() => setShowModal(!showModal)} />
           {data?.result?.cards?.map((card) => (

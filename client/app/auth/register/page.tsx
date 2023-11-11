@@ -1,17 +1,17 @@
-import CheckboxWithLabel from "@/app/components/CheckboxWithLabel";
 import DefaultButton from "@/app/components/DefaultButton";
 import DefaultInput from "@/app/components/DefaultInput";
 import FormCard from "@/app/components/FormCard";
-import H2 from "@/app/components/H2";
+import Text from "../../components/Text";
 import LinkArrowRightIcon from "@/app/components/LinkArrowRightIcon";
 import Select from "@/app/components/Select";
 import Link from "next/link";
 import countries from "@/app/data/countries.json";
+
 function RegisterPage() {
   return (
     <div className="w-full pt-8">
       <div className="text-center py-5">
-        <H2>Ro'yhatdan o'tish</H2>
+        <Text>Ro'yhatdan o'tish</Text>
       </div>
       <div className="flex justify-center">
         <FormCard>

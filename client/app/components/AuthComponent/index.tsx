@@ -1,5 +1,5 @@
 "use client";
-import H2 from "@/app/components/H2";
+import Text from "../Text";
 import DefaultInput from "@/app/components/DefaultInput";
 import CheckboxWithLabel from "@/app/components/CheckboxWithLabel";
 import Link from "next/link";
@@ -33,7 +33,7 @@ function AuthComponent() {
         .promise(
           async () => {
             const promise = mutation.mutateAsync(
-              new FormData(event.currentTarget as HTMLFormElement)
+              new FormData(event.currentTarget as HTMLFormElement),
             );
             const response = await promise;
             setError(response.data.message);
@@ -48,17 +48,17 @@ function AuthComponent() {
             error: error ?? "Nimadir xato ketdi",
             pending: "Bajarilmoqda...",
           },
-          toastOptions
+          toastOptions,
         )
         .then(() => window.location.reload());
     },
-    [error, mutation, rememberToken]
+    [error, mutation, rememberToken],
   );
   return (
     <>
       <div className="w-full pt-8">
         <div className="text-center py-5">
-          <H2>Paymentga xush kelibsiz!</H2>
+          <Text>Paymentga xush kelibsiz!</Text>
         </div>
         <div className="flex justify-center">
           <FormCard onSubmit={formSubmit}>

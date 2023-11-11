@@ -1,10 +1,9 @@
 "use client";
-import { SubmitButton } from "@/app/transfer/page";
-import H2 from "@/app/components/H2";
+import Text from "../../components/Text";
 import CreditCard from "@/app/components/CreditCard";
 import CreditCardInfo from "@/app/components/CreditCardInfo";
 import { useTransferContext } from "@/app/context/transfer/context";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { cardInfoQuery } from "@/app/utils/queryFunctions";
 import { mutationFunc, submitData } from "@/app/utils/mutationFunctions";
@@ -16,18 +15,18 @@ import { useRouter } from "next/navigation";
 function AmountPage() {
   const router = useRouter();
   const mutation = useMutation(
-    mutationFunc("http://localhost:4000/api/transfer/new", "POST", true)
+    mutationFunc("http://localhost:4000/api/transfer/new", "POST", true),
   );
   const queryClient = useQueryClient();
   const submit = submitData.bind(null, mutation, queryClient);
   const { transferDetails } = useTransferContext();
   const { data: senderCard } = useQuery(
     "user-card",
-    cardInfoQuery(transferDetails?.senderCard || "")
+    cardInfoQuery(transferDetails?.senderCard || ""),
   );
   const { data: receiverCard } = useQuery(
     "receiver-card",
-    cardInfoQuery(transferDetails?.receiverCard || "")
+    cardInfoQuery(transferDetails?.receiverCard || ""),
   );
   const [amount, setAmount] = useState(0);
   const [description, setDescription] = useState("");
@@ -73,7 +72,7 @@ function AmountPage() {
                 setAmount(+event.target.value);
               }}
             />
-            <H2>So'm</H2>
+            <Text>So'm</Text>
           </div>
           <TextArea
             label="Izoh"

@@ -1,16 +1,17 @@
 "use client";
 import { SubmitButton } from "@/app/transfer/page";
-import H2 from "@/app/components/H2";
+import Text from "../../components/Text";
 import GradientButton from "@/app/components/GradientButton";
 import Link from "next/link";
 import { ComponentProps, useState } from "react";
 import handleInputChange from "@/app/utils/cardNumberSplit";
 import { useMutation } from "react-query";
-import { mutationFunc, submitData } from "@/app/utils/mutationFunctions";
+import { mutationFunc } from "@/app/utils/mutationFunctions";
 import { CreditCardInterface, UserInterface } from "@/app/types";
 import CreditCard from "@/app/components/CreditCard";
 import CreditCardInfo from "@/app/components/CreditCardInfo";
 import { useTransferContext } from "@/app/context/transfer/context";
+
 function FloatingLabelInput({
   label,
   ...props
@@ -46,7 +47,7 @@ function TransferUserPage() {
   );
   return (
     <div className="p-4">
-      <H2>Qabul qiluvchini tanlang</H2>
+      <Text>Qabul qiluvchini tanlang</Text>
       <div className="mt-3 w-full">
         <form
           className="relative z-0 my-12 w-[600px]"
@@ -76,7 +77,7 @@ function TransferUserPage() {
           {data &&
             ("cardNumber" in data ? (
               <>
-                <H2>Topilgan karta:</H2>
+                <Text>Topilgan karta:</Text>
                 <div className="my-3">
                   <CreditCard
                       selected={data._id === transferDetails?.receiverCard}
@@ -95,7 +96,7 @@ function TransferUserPage() {
               </>
             ) : (
               <>
-                <H2>{data.fullName}ning mavjud kartalari:</H2>
+                <Text>{data.fullName}ning mavjud kartalari:</Text>
                 <div className="flex my-3">
                   {data.cards.map((card) => (
                     <CreditCard

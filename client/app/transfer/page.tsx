@@ -1,5 +1,5 @@
 "use client";
-import H2 from "@/app/components/H2";
+import Text from "../components/Text";
 import { ComponentProps } from "react";
 import GradientButton from "@/app/components/GradientButton";
 import Link from "next/link";
@@ -25,7 +25,7 @@ function TransferPage() {
   const { transferDetails, setTransferDetails } = useTransferContext();
   return (
     <div className="p-4">
-      <H2>Pul o'tkazish</H2>
+      <Text>Pul o'tkazish</Text>
       <div>
         <h4 className="m-3 dark:text-white text-gray-900">Kartani tanlash</h4>
         <div className="flex flex-wrap w-full">
