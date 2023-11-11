@@ -3,25 +3,12 @@ import BasicUserDetails from "@/app/settings/components/BasicUserDetails";
 import { useQuery } from "react-query";
 import { userInfoQuery } from "@/app/utils/queryFunctions";
 import H2 from "@/app/components/H2";
-import Card from "@/app/components/Card";
-import DefaultInput from "@/app/components/DefaultInput";
-import { UserInterface } from "@/app/types";
+import ContactSettings from "@/app/settings/components/ContactSettings";
 import SettingCard from "@/app/settings/components/SettingCard";
-
-function ContactSettings({ details }: { details: UserInterface }) {
-  return (
-    <Card>
-      <SettingCard>
-        <DefaultInput
-          name="phone"
-          label="Telefon raqami"
-          defaultValue={details.phone}
-        />
-        <DefaultInput name="email" label="Email" defaultValue={details.email} />
-      </SettingCard>
-    </Card>
-  );
-}
+import DefaultInput from "@/app/components/DefaultInput";
+import Card from "@/app/components/Card";
+import DefaultButton from "@/app/components/DefaultButton";
+import GradientButton from "@/app/components/GradientButton";
 
 function SettingsPage() {
   const { data } = useQuery("user", userInfoQuery);
@@ -33,6 +20,26 @@ function SettingsPage() {
           <BasicUserDetails details={data.result} />
           <br />
           <ContactSettings details={data.result} />
+          <br />
+          <Card style={{ margin: "20px auto" }}>
+            <SettingCard>
+              <div className="w-full">
+                <DefaultInput type="password" label="Joriy parol" />
+                <DefaultInput
+                  type="password"
+                  name="password"
+                  label="Yangi parol"
+                />
+                <DefaultInput type="password" label="Qayta takrorlang" />
+              </div>
+            </SettingCard>
+          </Card>
+          <div>
+            <DefaultButton style={{ margin: "0 10px" }} type="submit">
+              O'zgarishlarni saqlash
+            </DefaultButton>
+            <GradientButton>Kartalar bo'limi</GradientButton>
+          </div>
         </form>
       ) : (
         <p></p>
