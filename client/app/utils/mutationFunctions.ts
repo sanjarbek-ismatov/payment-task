@@ -1,9 +1,9 @@
-import { FormEvent } from "react";
-import { toast } from "react-toastify";
-import { toastOptions } from "../data/variables";
-import { Mutation, ServerResponse } from "../types";
-import { getToken } from "./getToken";
-import { QueryClient } from "react-query";
+import {FormEvent} from "react";
+import {toast} from "react-toastify";
+import {toastOptions} from "../data/variables";
+import {Mutation, ServerResponse} from "../types";
+import {getToken} from "./getToken";
+import {QueryClient} from "react-query";
 
 export function mutationFunc<B extends BodyInit, R = null>(
   url: string,
@@ -51,14 +51,13 @@ export const formSubmit = (
             currentFormElement.cardNumber.value.split(" ").join("")
           );
         }
-        const promise = mutation.mutateAsync(formData, {
+        return mutation.mutateAsync(formData, {
           onSuccess() {
             queries.forEach((query) => {
               queryClient.invalidateQueries(query);
             });
           },
         });
-        return promise;
       },
       {
         success: "Bajarildi",

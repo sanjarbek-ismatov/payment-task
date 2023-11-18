@@ -76,8 +76,12 @@ router.put('/update', [upload.single('image'), authMiddleware], async (req: Expr
   if(!user) return
   if(req.file){
     user.image = req.file.filename
-    console.log(req.file, user)
   }
+  if(req.body.password){
+    user.password = await passwordGenerator(req.body.password)
+  }
+  delete req.body.password
+  Object.assign(user, req.body)
   await user.save()
   res.status(200).send({code: 200, message: "DONE"})
 })
