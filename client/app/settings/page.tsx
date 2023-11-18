@@ -1,6 +1,6 @@
 "use client";
 import BasicUserDetails from "@/app/settings/components/BasicUserDetails";
-import { useQuery } from "react-query";
+import {useMutation, useQuery, useQueryClient} from "react-query";
 import { userInfoQuery } from "@/app/utils/queryFunctions";
 import Text from "../components/Text";
 import ContactSettings from "@/app/settings/components/ContactSettings";
@@ -10,6 +10,8 @@ import Card from "@/app/components/Card";
 import DefaultButton from "@/app/components/DefaultButton";
 import GradientButton from "@/app/components/GradientButton";
 import Link from "next/link";
+import {formSubmit, mutationFunc} from "@/app/utils/mutationFunctions";
+import Toast from "@/app/components/Toast";
 
 function PasswordSettings() {
   return (
@@ -30,11 +32,15 @@ function PasswordSettings() {
 
 function SettingsPage() {
   const { data } = useQuery("user", userInfoQuery);
+  const mutation = useMutation(mutationFunc('http://localhost:4000/api/user/update', 'PUT', true))
+  const queryClient = useQueryClient()
+    const submit = formSubmit(mutation, queryClient)
   return (
-    <div className="p-4 text-center">
+    <>
+      <div className="p-4 text-center">
       <Text>Sozlamalar</Text>
       {data && data.result ? (
-        <form>
+        <form onSubmit={submit}>
           <BasicUserDetails details={data.result} />
           <br />
           <ContactSettings details={data.result} />
@@ -53,6 +59,8 @@ function SettingsPage() {
         <p></p>
       )}
     </div>
+        <Toast />
+      </>
   );
 }
 export default SettingsPage;
