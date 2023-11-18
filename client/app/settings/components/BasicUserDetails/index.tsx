@@ -4,7 +4,8 @@ import { UserInterface } from "@/app/types";
 import Card from "@/app/components/Card";
 import SettingCard from "@/app/settings/components/SettingCard";
 import Text from "@/app/components/Text";
-
+import Select from "@/app/components/Select";
+import countries from '@/app/data/countries.json'
 function BasicUserDetails({ details }: { details: UserInterface }) {
   return (
     <Card style={{ margin: "20px auto" }}>
@@ -30,12 +31,11 @@ function BasicUserDetails({ details }: { details: UserInterface }) {
                 .substring(0, 10)}
             />
           </div>
-          <DefaultInput
-            name="country"
-            label="Mamlakat"
-            type="text"
-            defaultValue={details.country}
-          />
+            <Select name='country' label='Mamlakat' defaultValue={details.country}>
+                {countries.map((country, index) => (
+                    <option value={country.name}>{country.name}</option>
+                ))}
+            </Select>
         </div>
       </SettingCard>
     </Card>
