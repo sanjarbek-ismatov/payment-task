@@ -9,7 +9,8 @@ import getServerUrl from "@/app/utils/getServerUrl";
 export function mutationFunc<B extends BodyInit, R = null>(
     url: string,
     method: string,
-    withToken: boolean
+    withToken: boolean,
+    forAuth?: "session" | "local"
 ) {
     return async (body: B) => {
         const token = getToken();
@@ -29,8 +30,13 @@ export function mutationFunc<B extends BodyInit, R = null>(
                     }),
                 },
             });
-            const data = await response.json();
-            if (response.ok) return {data, headers: response.headers} as { data: ServerResponse<R>; headers: Headers };
+            const gotToken = response.headers.get('x-token') || ""
+            if (forAuth) {
+                forAuth === 'local' ? localStorage.setItem("x-token", gotToken)
+                    : sessionStorage.setItem("x-token", gotToken);
+            }
+            const data: ServerResponse<R> = await response.json();
+            if (response.ok) return data
             return Promise.reject(data.message);
         } catch (ex) {
             return {} as ServerResponse<R>;
