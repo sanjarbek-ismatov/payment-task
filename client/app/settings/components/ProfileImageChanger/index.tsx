@@ -4,15 +4,16 @@ import {ChangeEvent, useState} from "react";
 import {useMutation, useQueryClient} from "react-query";
 import {mutationFunc, submitData} from "@/app/utils/mutationFunctions";
 
-function ProfileImageChanger({src}: {src?: string}){
+function ProfileImageChanger({src}: { src?: string }) {
     const [imageSrc, setImageSrc] = useState(src)
     const [isLocal, setIsLocal] = useState(!Boolean(src))
     const queryClient = useQueryClient()
-    const mutation = useMutation(mutationFunc("http://localhost:4000/api/user/update", "PUT", true))
+    const mutation = useMutation(mutationFunc("/api/user/update", "PUT", true))
     const submitNewImage = submitData.bind(null, mutation, queryClient)
-    function handleChangeImage(event: ChangeEvent<HTMLInputElement>){
+
+    function handleChangeImage(event: ChangeEvent<HTMLInputElement>) {
         const files = event?.target?.files as FileList
-        if(!files.length)return
+        if (!files.length) return
         const newUrl = URL.createObjectURL(files[0])
         setImageSrc(newUrl)
         setIsLocal(true)
@@ -20,8 +21,10 @@ function ProfileImageChanger({src}: {src?: string}){
         formData.append('image', files[0])
         submitNewImage(formData, "user")
     }
-    return <label><ImageComponent className='w-[200px] h-[200px] rounded-full' isLocal={isLocal} url={imageSrc} />
-        <input onChange={handleChangeImage} type='file' className='hidden' />
+
+    return <label><ImageComponent className='w-[200px] h-[200px] rounded-full' isLocal={isLocal} url={imageSrc}/>
+        <input onChange={handleChangeImage} type='file' className='hidden'/>
     </label>
 }
+
 export default ProfileImageChanger

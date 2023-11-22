@@ -16,9 +16,9 @@ function Modal({
     const [cardNumber, setCardNumber] = useState("");
     const queryClient = useQueryClient();
     const mutation = useMutation(
-        mutationFunc("http://localhost:4000/api/card/add", "POST", true)
+        mutationFunc("/api/card/add", "POST", true)
     );
-    const submit = submitForm(mutation, queryClient, "user");
+    const submit = submitForm(mutation, queryClient, ["user"]);
     return (
         <>
             <div

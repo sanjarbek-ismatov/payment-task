@@ -14,7 +14,7 @@ import {mutationFunc, submitForm} from "@/app/utils/mutationFunctions";
 function AuthComponent() {
     const queryClient = useQueryClient()
     const [rememberToken, setRememberToken] = useState(false);
-    const mutation = useMutation(mutationFunc("/api/user/signing", "POST", true))
+    const mutation = useMutation(mutationFunc("/api/user/signing", "POST", true, rememberToken ? "local" : "session"))
     const formSubmit = submitForm(mutation, queryClient, [], () => window.location.reload())
     return (
         <>
