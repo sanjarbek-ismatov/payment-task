@@ -46,7 +46,7 @@ export function mutationFunc<B extends BodyInit, R = null>(
 
 export const submitForm = (
     mutation: Mutation,
-    queryClient: QueryClient,
+    queryClient?: QueryClient,
     queries?: string[],
     ...cbs: (() => void)[]
 ) => {
@@ -65,7 +65,7 @@ export const submitForm = (
                 return mutation.mutateAsync(formData, {
                     onSuccess() {
                         queries?.forEach((query) => {
-                            queryClient.invalidateQueries(query);
+                            queryClient?.invalidateQueries(query);
                         });
                         for (const cb of cbs) {
                             cb()
