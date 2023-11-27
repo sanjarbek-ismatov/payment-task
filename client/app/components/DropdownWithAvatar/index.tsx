@@ -29,7 +29,7 @@ function DropdownWithAvatar() {
                     alt="user"
                     className="w-8 h-8 mr-2 rounded-full object-cover"
                 />
-                {data?.result?.fullName}
+                <span className='hidden sm:inline'>{data?.result?.fullName}</span>
                 <svg
                     className="w-2.5 h-2.5 ml-2.5"
                     aria-hidden="true"
@@ -49,7 +49,7 @@ function DropdownWithAvatar() {
             {/* Dropdown menu */}
             <div
                 id="dropdownAvatarName"
-                className={`z-10 ${hiderClass} bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600`}
+                className={`z-10 ${hiderClass} right-3 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600`}
             >
                 <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
                     <div className="font-medium ">{data?.result?.phone}</div>
