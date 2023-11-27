@@ -14,7 +14,7 @@ function Navbar() {
                             alt="Flowbite Logo"
                         />
                         <span
-                            className="hidden ms:inline self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+                            className="hidden md:inline self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
               YouPay
             </span>
                     </a>
@@ -42,7 +42,7 @@ function Navbar() {
                     {/*    </svg>*/}
                     {/*</button>*/}
                     <div className="block w-auto" id="navbar-default">
-                        <ul className="font-medium flex items-center justify-center p-0  border-gray-100 rounded-lg flex-row space-x-8 mt-0 border-0 bg-white  dark:bg-gray-900 dark:border-gray-700">
+                        <ul className="font-medium flex items-center p-0  border-gray-100 rounded-lg space-x-8 mt-0 border-0 bg-white  dark:bg-gray-900 dark:border-gray-700">
                             <li>
                                 <GradientButton>Pul o'tkazish</GradientButton>
                             </li>
