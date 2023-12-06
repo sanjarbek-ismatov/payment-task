@@ -13,7 +13,7 @@ function CreditCard({
         >
             <div
                 {...rest}
-                className="group cursor-pointer m-3 sm:w-1/2 h-auto  md:w-[400px] md:min-h-[250px]  p-6 relative bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+                className="group cursor-pointer m-2 sm:w-1/2 h-auto  md:w-[400px] md:min-h-[250px]  p-6 relative bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
             >
                 {children ? (
                     children

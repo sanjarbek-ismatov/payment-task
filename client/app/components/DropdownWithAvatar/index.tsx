@@ -49,7 +49,7 @@ function DropdownWithAvatar() {
             {/* Dropdown menu */}
             <div
                 id="dropdownAvatarName"
-                className={`z-10 ${hiderClass} right-3 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600`}
+                className={`z-10 ${hiderClass} sm:right-16 right-3 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600`}
             >
                 <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
                     <div className="font-medium ">{data?.result?.phone}</div>
