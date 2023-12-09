@@ -19,7 +19,7 @@ function SettingsPage() {
     return (
         <>
             <div className="p-4 text-center">
-                <Text>Sozlamalar</Text>
+                <Text size='text-md'>Sozlamalar</Text>
                 {data && data.result ? (
                     <form onSubmit={submit}>
                         <BasicUserDetails details={data.result}/>
