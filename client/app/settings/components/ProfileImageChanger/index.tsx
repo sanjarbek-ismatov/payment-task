@@ -22,7 +22,8 @@ function ProfileImageChanger({src}: { src?: string }) {
         submitNewImage(formData, "user")
     }
 
-    return <label><ImageComponent className='w-[200px] h-[200px] rounded-full' isLocal={isLocal} url={imageSrc}/>
+    return <label><ImageComponent className='w-[200px] h-[200px] rounded-full lg:m-0 m-auto my-2' isLocal={isLocal}
+                                  url={imageSrc}/>
         <input onChange={handleChangeImage} type='file' className='hidden'/>
     </label>
 }

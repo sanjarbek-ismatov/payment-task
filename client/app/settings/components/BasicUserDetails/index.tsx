@@ -16,7 +16,7 @@ function BasicUserDetails({details}: { details: UserInterface }) {
             <SettingCard>
                 <ProfileImageChanger src={details.image}/>
                 <div className="flex-1 m-3">
-                    <div className="flex w-full">
+                    <div className="flex flex-col lg:flex-row items-center w-full">
                         <DefaultInput
                             name="fullName"
                             type="text"
