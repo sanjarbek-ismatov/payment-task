@@ -52,21 +52,22 @@ function ReportsPage() {
                     Object.keys(sortedByDates).map((year) => {
                         const currentYear = sortedByDates[year];
                         return (
-                            <div className="p-4">
+                            <div key={year} className="p-4">
                                 <Text size='text-3xl'>{year} yil</Text>
                                 <hr className="my-4"/>
                                 {Object.keys(currentYear).map((month) => {
                                     const currentMonth = currentYear[month];
                                     return (
-                                        <div className="p-2">
+                                        <div key={month} className="p-2">
                                             <h4 className="text-white text-xl font-bold">
                                                 {convertIndexToMonth(+month)} oyi
                                             </h4>
                                             <hr className="my-4"/>
-                                            {Object.keys(currentMonth).map((day) => {
+                                            {Object.keys(currentMonth).map((day, id) => {
                                                 const currentDay = currentMonth[day];
                                                 return (
-                                                    <ul className="relative m-5 border-l border-gray-200 dark:border-gray-700">
+                                                    <ul key={id}
+                                                        className="relative m-5 border-l border-gray-200 dark:border-gray-700">
                                                         <h6 className="text-white m-3">
                                                             {day}-{convertIndexToMonth(+month).toLowerCase()},{" "}
                                                             {convertDayToWeekDay(currentDay[0].day)}
