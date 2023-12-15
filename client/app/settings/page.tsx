@@ -9,6 +9,7 @@ import BasicUserDetails from "@/app/settings/components/BasicUserDetails";
 import ContactSettings from "@/app/settings/components/ContactSettings";
 import PasswordSettings from "@/app/settings/components/PasswordSettings";
 import SubmitSettings from "@/app/settings/components/SubmitSettings";
+import SEOHead from "@/app/components/SEOHead";
 
 
 function SettingsPage() {
@@ -18,6 +19,9 @@ function SettingsPage() {
     const submit = submitForm(mutation, queryClient)
     return (
         <>
+            <head>
+                <SEOHead title='Sozlamalar'/>
+            </head>
             <div className="p-4 text-center">
                 <Text size='text-md'>Sozlamalar</Text>
                 {data && data.result ? (

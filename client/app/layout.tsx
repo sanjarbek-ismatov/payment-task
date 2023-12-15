@@ -11,6 +11,7 @@ import {useAuth} from "./hooks/useAuth";
 import AuthComponent from "./components/AuthComponent";
 import TransferProvider from "@/app/context/transfer/provider";
 import React, {useMemo} from "react";
+import SEOHead from "@/app/components/SEOHead";
 
 const inter = Inter({subsets: ["latin"]});
 
@@ -24,7 +25,10 @@ export default function RootLayout({
     return (
         <html className="dark" lang="en">
         <head>
-            <title>Payment</title>
+            <SEOHead
+                title="Youpay - to'lovlarni oson amalga oshiring"
+                description="Youpay bu portfolio yig'uvchi dasturchi tomonidan ishlab chiqilgan to'lov tizimi. Albatta bu haqiqiy emas, lekin yetarlicha mehnat qilingan"
+            />
             <link
                 rel="stylesheet"
                 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
