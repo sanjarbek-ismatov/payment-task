@@ -1,5 +1,5 @@
 "use client";
-import {SubmitButton} from "@/app/transfer/page";
+import SubmitButton from "@/app/components/SubmitButton";
 import Text from "../../components/Text";
 import GradientButton from "@/app/components/GradientButton";
 import Link from "next/link";
