@@ -1,27 +1,20 @@
-"use client";
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import {Inter} from "next/font/google";
-import Navbar from "@/app/components/Navbar";
-import SideBar from "@/app/components/SideBar";
 import Script from "next/script";
-import {QueryClient, QueryClientProvider} from "react-query";
-import {ReactQueryDevtools} from "react-query/devtools";
-import {useAuth} from "./hooks/useAuth";
-import AuthComponent from "./components/AuthComponent";
-import TransferProvider from "@/app/context/transfer/provider";
-import React, {useMemo} from "react";
+import React from "react";
 import SEOHead from "@/app/components/SEOHead";
+import MainContent from "@/app/components/MainContent";
+import ServerContextProvider from "@/app/context/server/provider";
 
 const inter = Inter({subsets: ["latin"]});
+
 
 export default function RootLayout({
                                        children,
                                    }: {
     children: React.ReactNode;
 }) {
-    const token = useAuth();
-    const queryClient = useMemo(() => new QueryClient(), [])
     return (
         <html className="dark" lang="en">
         <head>
@@ -40,20 +33,9 @@ export default function RootLayout({
         <body
             className={`${inter.className} min-h-screen h-full w-full dark:bg-gray-900`}
         >
-        <QueryClientProvider client={queryClient}>
-            <TransferProvider>
-                <header>
-                    <Navbar/>
-                </header>
-                <main className="flex">
-                    <SideBar/>
-                    <div className="w-full h-full">
-                        {token ? children : <AuthComponent/>}
-                    </div>
-                </main>
-                <ReactQueryDevtools initialIsOpen={false}/>
-            </TransferProvider>
-        </QueryClientProvider>
+        <ServerContextProvider>
+            <MainContent children={children}/>
+        </ServerContextProvider>
         <div className="fixed top-0 left-0 z-50 bg-pink-500 text-white shadow-md px-2 rounded-bl font-mono">
             <span className="sm:hidden">default</span>
             <span className="hidden sm:inline md:hidden">sm</span>
