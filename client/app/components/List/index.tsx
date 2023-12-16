@@ -1,8 +1,7 @@
-import {CreditCardInterface, UserInterface} from "@/app/types";
+import {UserInterface} from "@/app/types";
 import Image from "next/image";
-import getServerUrl from "@/app/utils/getServerUrl";
 
-function List({user}: { user?: UserInterface<CreditCardInterface> }) {
+function List({user, url}: { user?: UserInterface; url?: string }) {
     return (
         <li className="py-3 sm:py-4">
             <div className="flex items-center space-x-3">
@@ -11,7 +10,7 @@ function List({user}: { user?: UserInterface<CreditCardInterface> }) {
                         width={32}
                         height={32}
                         className="w-8 h-8 rounded-full"
-                        src={`${getServerUrl()}/api/files/get/${user?.image}`}
+                        src={`${url}/api/files/get/${user?.image}`}
                         alt="Neil image"
                         unoptimized
                     />

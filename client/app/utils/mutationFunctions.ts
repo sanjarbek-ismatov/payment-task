@@ -4,7 +4,6 @@ import {toastOptions} from "../data/variables";
 import {Mutation, ServerResponse} from "../types";
 import {getToken} from "./getToken";
 import {QueryClient} from "react-query";
-import getServerUrl from "@/app/utils/getServerUrl";
 
 export function mutationFunc<B extends BodyInit, R = null>(
     url: string,
@@ -14,7 +13,7 @@ export function mutationFunc<B extends BodyInit, R = null>(
 ) {
     return async (body: B) => {
         const token = getToken();
-        const serverURL = getServerUrl()
+        const serverURL = process.env.SERVER_URL
         const fixedURL = serverURL + url
 
         try {
