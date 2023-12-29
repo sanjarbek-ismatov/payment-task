@@ -1,20 +1,24 @@
+"use client"
 import {FormEvent} from "react";
 import {toast} from "react-toastify";
 import {toastOptions} from "../data/variables";
 import {Mutation, ServerResponse} from "../types";
 import {getToken} from "./getToken";
-import {QueryClient} from "react-query";
+import {QueryClient, useMutation} from "react-query";
+import {useServer} from "@/app/context/server";
 
-export function mutationFunc<B extends BodyInit, R = null>(
+export function useMutationFunc<B extends BodyInit, R = null>(
     url: string,
     method: string,
     withToken: boolean,
     forAuth?: "session" | "local"
 ) {
-    return async (body: B) => {
+    const serverURL = useServer()
+
+    const func =  async (body: B) => {
         const token = getToken();
-        const serverURL = process.env.SERVER_URL
-        const fixedURL = serverURL + url
+
+        const fixedURL = serverURL?.url + url
 
         try {
             const response = await fetch(fixedURL, {
@@ -41,6 +45,7 @@ export function mutationFunc<B extends BodyInit, R = null>(
             return {} as ServerResponse<R>;
         }
     };
+    return useMutation(func)
 }
 
 export const submitForm = (

@@ -15,6 +15,7 @@ export default function RootLayout({
                                    }: {
     children: React.ReactNode;
 }) {
+    const serverUrl = process.env.SERVER_URL || ""
     return (
         <html className="dark" lang="en">
         <head>
@@ -33,7 +34,7 @@ export default function RootLayout({
         <body
             className={`${inter.className} min-h-screen h-full w-full dark:bg-gray-900`}
         >
-        <ServerContextProvider>
+        <ServerContextProvider url={serverUrl}>
             <MainContent children={children}/>
         </ServerContextProvider>
         <div className="fixed top-0 left-0 z-50 bg-pink-500 text-white shadow-md px-2 rounded-bl font-mono">
