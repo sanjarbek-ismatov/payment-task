@@ -2,7 +2,7 @@
 import {useMutation, useQuery, useQueryClient} from "react-query";
 import {userInfoQuery} from "@/app/utils/queryFunctions";
 import Text from "../components/Text";
-import {mutationFunc, submitForm} from "@/app/utils/mutationFunctions";
+import {useMutationFunc, submitForm} from "@/app/utils/mutationFunctions";
 import Toast from "@/app/components/Toast";
 import Spinner from "@/app/components/Spinner";
 import BasicUserDetails from "@/app/settings/components/BasicUserDetails";
@@ -14,7 +14,7 @@ import SEOHead from "@/app/components/SEOHead";
 
 function SettingsPage() {
     const {data} = useQuery("user", userInfoQuery);
-    const mutation = useMutation(mutationFunc('/api/user/update', 'PUT', true))
+    const mutation = useMutation(useMutationFunc('/api/user/update', 'PUT', true))
     const queryClient = useQueryClient()
     const submit = submitForm(mutation, queryClient)
     return (

@@ -9,13 +9,15 @@ import LinkArrowRightIcon from "@/app/components/LinkArrowRightIcon";
 import {useMutation, useQueryClient} from "react-query";
 import {useState} from "react";
 import Toast from "@/app/components/Toast";
-import {mutationFunc, submitForm} from "@/app/utils/mutationFunctions";
+import {useMutationFunc, submitForm} from "@/app/utils/mutationFunctions";
 
 function AuthComponent() {
     const queryClient = useQueryClient()
     const [rememberToken, setRememberToken] = useState(false);
-    const mutation = useMutation(mutationFunc("/api/user/signing", "POST", true, rememberToken ? "local" : "session"))
-    const formSubmit = submitForm(mutation, queryClient, [], () => window.location.reload())
+    const mutation = useMutationFunc("/api/user/signing", "POST", true, rememberToken ? "local" : "session")
+    const formSubmit = submitForm(mutation, queryClient, [],
+        () => window.location.reload()
+    )
     return (
         <>
             <div className="w-full pt-8">

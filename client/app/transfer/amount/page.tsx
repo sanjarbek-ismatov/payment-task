@@ -6,7 +6,7 @@ import {useTransferContext} from "@/app/context/transfer/context";
 import {useState} from "react";
 import {useMutation, useQuery, useQueryClient} from "react-query";
 import {cardInfoQuery} from "@/app/utils/queryFunctions";
-import {mutationFunc, submitData} from "@/app/utils/mutationFunctions";
+import {useMutationFunc, submitData} from "@/app/utils/mutationFunctions";
 import GradientButton from "@/app/components/GradientButton";
 import TextArea from "@/app/components/TextArea";
 import Toast from "@/app/components/Toast";
@@ -15,7 +15,7 @@ import {useRouter} from "next/navigation";
 function AmountPage() {
     const router = useRouter();
     const mutation = useMutation(
-        mutationFunc("/api/transfer/new", "POST", true),
+        useMutationFunc("/api/transfer/new", "POST", true),
     );
     const queryClient = useQueryClient();
     const submit = submitData.bind(null, mutation, queryClient);

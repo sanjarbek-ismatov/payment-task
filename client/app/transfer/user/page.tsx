@@ -6,7 +6,7 @@ import Link from "next/link";
 import {useState} from "react";
 import handleInputChange from "@/app/utils/cardNumberSplit";
 import {useMutation} from "react-query";
-import {mutationFunc} from "@/app/utils/mutationFunctions";
+import {useMutationFunc} from "@/app/utils/mutationFunctions";
 import {CreditCardInterface, UserInterface} from "@/app/types";
 import CreditCard from "@/app/components/CreditCard";
 import CreditCardInfo from "@/app/components/CreditCardInfo";
@@ -20,7 +20,7 @@ function TransferUserPage() {
     const [data, setData] = useState<UserInterface | CreditCardInterface>();
     const {transferDetails, setTransferDetails} = useTransferContext();
     const mutation = useMutation(
-        mutationFunc<any, UserInterface | CreditCardInterface>(
+        useMutationFunc<any, UserInterface | CreditCardInterface>(
             "/api/user",
             "POST",
             false

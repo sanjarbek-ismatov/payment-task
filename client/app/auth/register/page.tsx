@@ -8,12 +8,12 @@ import Select from "@/app/components/Select";
 import Link from "next/link";
 import countries from "@/app/data/countries.json";
 import {useMutation} from "react-query";
-import {mutationFunc, submitForm} from "@/app/utils/mutationFunctions";
+import {useMutationFunc, submitForm} from "@/app/utils/mutationFunctions";
 import {useRouter} from "next/navigation";
 import Toast from "@/app/components/Toast";
 
 function RegisterPage() {
-    const mutation = useMutation(mutationFunc('/api/user/signup', "POST", false))
+    const mutation = useMutation(useMutationFunc('/api/user/signup', "POST", false))
     const router = useRouter()
     const formSubmit = submitForm(mutation, undefined, [], () => router.replace('/'))
     return (

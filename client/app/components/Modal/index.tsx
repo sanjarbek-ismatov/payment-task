@@ -3,7 +3,7 @@ import {Dispatch, SetStateAction, useState} from "react";
 import {useMutation, useQueryClient} from "react-query";
 import DefaultInput from "../DefaultInput";
 import Toast from "../Toast";
-import {mutationFunc, submitForm} from "@/app/utils/mutationFunctions";
+import {useMutationFunc, submitForm} from "@/app/utils/mutationFunctions";
 import handleInputChange from "@/app/utils/cardNumberSplit";
 
 function Modal({
@@ -15,9 +15,7 @@ function Modal({
 }) {
     const [cardNumber, setCardNumber] = useState("");
     const queryClient = useQueryClient();
-    const mutation = useMutation(
-        mutationFunc("/api/card/add", "POST", true)
-    );
+    const mutation = useMutationFunc("/api/card/add", "POST", true)
     const submit = submitForm(mutation, queryClient, ["user"]);
     return (
         <>

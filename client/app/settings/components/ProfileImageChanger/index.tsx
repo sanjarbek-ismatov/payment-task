@@ -2,13 +2,13 @@
 import ImageComponent from "@/app/components/Image";
 import {ChangeEvent, useState} from "react";
 import {useMutation, useQueryClient} from "react-query";
-import {mutationFunc, submitData} from "@/app/utils/mutationFunctions";
+import {useMutationFunc, submitData} from "@/app/utils/mutationFunctions";
 
 function ProfileImageChanger({src}: { src?: string }) {
     const [imageSrc, setImageSrc] = useState(src)
     const [isLocal, setIsLocal] = useState(!Boolean(src))
     const queryClient = useQueryClient()
-    const mutation = useMutation(mutationFunc("/api/user/update", "PUT", true))
+    const mutation = useMutation(useMutationFunc("/api/user/update", "PUT", true))
     const submitNewImage = submitData.bind(null, mutation, queryClient)
 
     function handleChangeImage(event: ChangeEvent<HTMLInputElement>) {
