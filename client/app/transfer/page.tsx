@@ -22,7 +22,7 @@ function TransferPage() {
                 <Text size="text-md">Pul o'tkazish</Text>
                 <div>
                     <h4 className="m-3 dark:text-white text-gray-900">Kartani tanlash</h4>
-                    <div className="flex flex-wrap w-full">
+                    <div className="sm:flex flex-wrap w-full sm:justify-start justify-center">
                         {data?.result?.cards.map((card) => (
                             <CreditCard
                                 selected={card._id === transferDetails?.senderCard}
@@ -33,6 +33,7 @@ function TransferPage() {
                                     }))
                                 }
                                 key={card._id}
+                                flexible
                             >
                                 <CreditCardInfo card={card}/>
                             </CreditCard>

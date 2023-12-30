@@ -21,9 +21,9 @@ export default function Home() {
             <div className="p-4">
                 <Text size='text-md'>Yangi karta qo'shish</Text>
                 <div className="my-4 md:flex flex-wrap w-full">
-                    <CreditCard onClick={() => setShowModal(!showModal)}/>
+                    <CreditCard onClick={() => setShowModal(!showModal)} flexible/>
                     {data?.result?.cards?.map((card) => (
-                        <CreditCard key={card.cardNumber}>
+                        <CreditCard key={card.cardNumber} flexible>
                             <CreditCardInfo card={card} deletable/>
                         </CreditCard>
                     ))}

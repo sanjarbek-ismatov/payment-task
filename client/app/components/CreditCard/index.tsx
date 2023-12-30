@@ -3,17 +3,18 @@ import {ComponentProps} from "react";
 function CreditCard({
                         children,
                         selected,
+                        flexible,
                         ...rest
-                    }: ComponentProps<"div"> & { selected?: boolean }) {
+                    }: ComponentProps<"div"> & { selected?: boolean; flexible?: boolean }) {
     return (
         <div
             className={`${
                 selected ? "border-green-500" : "border-transparent"
-            } border-2 rounded md:inline-block block w-auto h-auto`}
+            } border-2 rounded md:inline-block sm:block w-auto h-auto flex ml-5 mr-5 sm:m-0`}
         >
             <div
                 {...rest}
-                className="group cursor-pointer m-2 sm:w-1/2 h-auto  md:w-[400px] md:min-h-[250px]  p-6 relative bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+                className={`group cursor-pointer m-2 sm:w-[300px] sm:h-[230px] md:w-[360px] w-full lg:h-[250px] p-6 relative bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700`}
             >
                 {children ? (
                     children

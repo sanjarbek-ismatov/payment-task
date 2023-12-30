@@ -10,9 +10,8 @@ function CreditCardInfo({
     card?: CreditCardInterface;
     deletable?: boolean;
 }) {
-    const mutation = useMutation(
-        useMutationFunc("/api/card/delete", "DELETE", true),
-    );
+    const mutation = useMutationFunc("/api/card/delete", "DELETE", true)
+
     const queryClient = useQueryClient();
     const submit = submitData.bind(
         null,
@@ -35,7 +34,7 @@ function CreditCardInfo({
             {card ? (
                 <>
                     <i className="fa-regular fa-credit-card text-3xl dark:text-white text-gray-900 mt-3"></i>
-                    <h2 className="text-2xl font-extrabold dark:text-white my-5">
+                    <h2 className="lg:text-2xl md:text-xl text-lg font-extrabold dark:text-white my-5">
                         {String(card.cardNumber).replace(/(\d{4})/gi, "$1 ")}
                     </h2>
                     <p className="mb-4 text-lg font-normal text-gray-500 dark:text-gray-400">
