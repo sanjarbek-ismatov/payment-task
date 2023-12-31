@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const useAuth = () => {
   const [token, setToken] = useState<boolean>(false);
