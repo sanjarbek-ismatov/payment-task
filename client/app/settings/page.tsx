@@ -14,7 +14,7 @@ import SEOHead from "@/app/components/SEOHead";
 
 function SettingsPage() {
     const {data} = useQuery("user", userInfoQuery);
-    const mutation = useMutation(useMutationFunc('/api/user/update', 'PUT', true))
+    const mutation = useMutationFunc('/api/user/update', 'PUT', true)
     const queryClient = useQueryClient()
     const submit = submitForm(mutation, queryClient)
     return (

@@ -8,7 +8,7 @@ function ProfileImageChanger({src}: { src?: string }) {
     const [imageSrc, setImageSrc] = useState(src)
     const [isLocal, setIsLocal] = useState(!Boolean(src))
     const queryClient = useQueryClient()
-    const mutation = useMutation(useMutationFunc("/api/user/update", "PUT", true))
+    const mutation = useMutationFunc("/api/user/update", "PUT", true)
     const submitNewImage = submitData.bind(null, mutation, queryClient)
 
     function handleChangeImage(event: ChangeEvent<HTMLInputElement>) {

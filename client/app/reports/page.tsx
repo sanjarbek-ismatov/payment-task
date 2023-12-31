@@ -7,6 +7,7 @@ import {useMemo} from "react";
 import {convertDayToWeekDay, convertIndexToMonth} from "../utils/dateToRead";
 import TransferDetails from "@/app/reports/components/TransferDetails";
 import SEOHead from "@/app/components/SEOHead";
+import Spinner from "@/app/components/Spinner";
 
 function ReportsPage() {
     const {data: transfers} = useQuery("transfers", transfersQuery);
@@ -48,6 +49,8 @@ function ReportsPage() {
             </head>
             <div className='p-4'>
                 <Text size='text-md'>Hisobotlar</Text>
+                {!transfers?.result?.length && <div className='w-full mt-24 flex justify-center'><Spinner
+                    size={'8'}/></div>}
                 {sortedByDates &&
                     Object.keys(sortedByDates).map((year) => {
                         const currentYear = sortedByDates[year];

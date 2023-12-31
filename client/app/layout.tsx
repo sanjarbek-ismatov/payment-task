@@ -35,15 +35,15 @@ export default function RootLayout({
             className={`${inter.className} min-h-screen h-full w-full dark:bg-gray-900`}
         >
         <ServerContextProvider url={serverUrl}>
-            <MainContent children={children}/>
+            <MainContent>{children}</MainContent>
         </ServerContextProvider>
-        <div className="fixed top-0 left-0 z-50 bg-pink-500 text-white shadow-md px-2 rounded-bl font-mono">
-            <span className="sm:hidden">default</span>
-            <span className="hidden sm:inline md:hidden">sm</span>
-            <span className="hidden md:inline lg:hidden">md</span>
-            <span className="hidden lg:inline xl:hidden">lg</span>
-            <span className="hidden xl:inline">xl</span>
-        </div>
+        {/*<div className="fixed top-0 left-0 z-50 bg-pink-500 text-white shadow-md px-2 rounded-bl font-mono">*/}
+        {/*    <span className="sm:hidden">default</span>*/}
+        {/*    <span className="hidden sm:inline md:hidden">sm</span>*/}
+        {/*    <span className="hidden md:inline lg:hidden">md</span>*/}
+        {/*    <span className="hidden lg:inline xl:hidden">lg</span>*/}
+        {/*    <span className="hidden xl:inline">xl</span>*/}
+        {/*</div>*/}
         <Script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"/>
         </body>
         </html>

@@ -19,13 +19,12 @@ function TransferUserPage() {
     const [type, setType] = useState("");
     const [data, setData] = useState<UserInterface | CreditCardInterface>();
     const {transferDetails, setTransferDetails} = useTransferContext();
-    const mutation = useMutation(
-        useMutationFunc<any, UserInterface | CreditCardInterface>(
+    const mutation = useMutationFunc<any, UserInterface | CreditCardInterface>(
             "/api/user",
             "POST",
             false
         )
-    );
+
     return (
         <div className="p-4">
             <Text>Qabul qiluvchini tanlang</Text>

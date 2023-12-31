@@ -14,9 +14,8 @@ import {useRouter} from "next/navigation";
 
 function AmountPage() {
     const router = useRouter();
-    const mutation = useMutation(
-        useMutationFunc("/api/transfer/new", "POST", true),
-    );
+    const mutation =  useMutationFunc("/api/transfer/new", "POST", true)
+
     const queryClient = useQueryClient();
     const submit = submitData.bind(null, mutation, queryClient);
     const {transferDetails} = useTransferContext();

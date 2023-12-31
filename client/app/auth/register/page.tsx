@@ -13,7 +13,7 @@ import {useRouter} from "next/navigation";
 import Toast from "@/app/components/Toast";
 
 function RegisterPage() {
-    const mutation = useMutation(useMutationFunc('/api/user/signup', "POST", false))
+    const mutation = useMutationFunc('/api/user/signup', "POST", false)
     const router = useRouter()
     const formSubmit = submitForm(mutation, undefined, [], () => router.replace('/'))
     return (
