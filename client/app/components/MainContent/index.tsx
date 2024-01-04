@@ -15,9 +15,7 @@ function MainContent({children}: { children: React.ReactNode }) {
     const path = usePathname()
     const queryClient = useMemo(() => new QueryClient(), [])
     useEffect(() => {
-            setTimeout(() => {
-                if(!token || path === "/auth/register") router.push('/auth/login')
-            }, 3000)
+        if (token === "none" && path !== "/auth/register") router.push('/auth/login')
     }, [token, path])
     return <QueryClientProvider client={queryClient}>
         <TransferProvider>
@@ -27,8 +25,9 @@ function MainContent({children}: { children: React.ReactNode }) {
             <main className="flex">
                 <SideBar/>
                 <div className="w-full h-full">
-                    {token || path.startsWith("/auth/")  ? children : <div className='w-full mt-24 flex justify-center'><Spinner
-                        size={'8'}/></div>}
+                    {token || path.startsWith("/auth/") ? children :
+                        <div className='w-full mt-24 flex justify-center'><Spinner
+                            size={'8'}/></div>}
                 </div>
             </main>
             <ReactQueryDevtools initialIsOpen={false}/>
