@@ -7,8 +7,7 @@ import LinkArrowRightIcon from "@/app/components/LinkArrowRightIcon";
 import Select from "@/app/components/Select";
 import Link from "next/link";
 import countries from "@/app/data/countries.json";
-import {useMutation} from "react-query";
-import {useMutationFunc, submitForm} from "@/app/utils/mutationFunctions";
+import {submitForm, useMutationFunc} from "@/app/utils/mutationFunctions";
 import {useRouter} from "next/navigation";
 import Toast from "@/app/components/Toast";
 
@@ -64,7 +63,7 @@ function RegisterPage() {
                         <div className="my-4">
                             <DefaultButton type="submit">Hisob yaratish</DefaultButton>
                             <Link
-                                href="/auth"
+                                href="/auth/login"
                                 className="inline-flex mx-2 items-center font-medium text-blue-600 dark:text-blue-500 hover:underline"
                             >
                                 Menda hisob mavjud

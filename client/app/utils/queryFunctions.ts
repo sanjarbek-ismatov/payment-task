@@ -1,8 +1,9 @@
 import {CreditCardInterface, ServerResponse, TransferInterface, UserInterface} from "../types";
 import getServerUrl from "@/app/utils/getServerUrl";
+import {getToken} from "@/app/utils/getToken";
 
 export const userInfoQuery = async () => {
-    const token = localStorage.getItem("x-token");
+    const token = getToken()
     const response = await fetch(`${getServerUrl()}/api/user/me`, {
         headers: {
             ["x-token"]: token as string,

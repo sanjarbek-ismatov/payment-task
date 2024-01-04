@@ -9,14 +9,14 @@ import LinkArrowRightIcon from "@/app/components/LinkArrowRightIcon";
 import {useQueryClient} from "react-query";
 import {useState} from "react";
 import Toast from "@/app/components/Toast";
-import {useMutationFunc, submitForm} from "@/app/utils/mutationFunctions";
+import {submitForm, useMutationFunc} from "@/app/utils/mutationFunctions";
 
 function LoginPage() {
     const queryClient = useQueryClient()
     const [rememberToken, setRememberToken] = useState(false);
     const mutation = useMutationFunc("/api/user/signing", "POST", true, rememberToken ? "local" : "session")
     const formSubmit = submitForm(mutation, queryClient, [],
-        () => window.location.reload()
+        () => window.location.href = "/"
     )
     return (
         <>
@@ -48,7 +48,7 @@ function LoginPage() {
                         <DefaultButton type="submit">Kirish</DefaultButton>
                         <Link
                             href="/auth/register"
-                            className="inline-flex mx-2 items-center font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                            className="inline-flex mx-3 items-center font-medium text-blue-600 dark:text-blue-500 hover:underline"
                         >
                             Ro'yhatdan o'tish
                             <LinkArrowRightIcon/>
