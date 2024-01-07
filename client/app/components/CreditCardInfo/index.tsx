@@ -1,17 +1,18 @@
 import {CreditCardInterface} from "@/app/types";
-import {useMutationFunc, submitData} from "@/app/utils/mutationFunctions";
-import {useMutation, useQueryClient} from "react-query";
+import {submitData, useMutationFunc} from "@/app/utils/mutationFunctions";
+import {useQueryClient} from "react-query";
 import Spinner from "@/app/components/Spinner";
 
 function CreditCardInfo({
                             card,
                             deletable,
+                            isloading
                         }: {
     card?: CreditCardInterface;
     deletable?: boolean;
+    isloading?: boolean
 }) {
     const mutation = useMutationFunc("/api/card/delete", "DELETE", true)
-
     const queryClient = useQueryClient();
     const submit = submitData.bind(
         null,
@@ -20,6 +21,7 @@ function CreditCardInfo({
         {_id: card?._id},
         "user",
     );
+
     return (
         <>
             {deletable && (
@@ -31,7 +33,9 @@ function CreditCardInfo({
         </span>
             )}
             <h2 className="dark:text-white text-gray-900">Karta</h2>
-            {card ? (
+            {isloading ? (
+                <Spinner/>
+            ) : card ? (
                 <>
                     <i className="fa-regular fa-credit-card text-3xl dark:text-white text-gray-900 mt-3"></i>
                     <h2 className="lg:text-2xl md:text-xl text-lg font-extrabold dark:text-white my-5">
@@ -41,9 +45,9 @@ function CreditCardInfo({
                         {card.cardHolderName}
                     </p>
                 </>
-            ) : (
-                <Spinner/>
-            )}
+            ) : <h2 className="lg:text-2xl md:text-xl text-lg font-bold dark:text-white my-5">
+                Sizda karta mavjud emas, qo'shish uchun bosh sahifaga o'ting!
+            </h2>}
         </>
     );
 }

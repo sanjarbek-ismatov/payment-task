@@ -23,7 +23,7 @@ function TransferPage() {
                 <div>
                     <h4 className="m-3 dark:text-white text-gray-900">Kartani tanlash</h4>
                     <div className="sm:flex flex-wrap w-full sm:justify-start justify-center">
-                        {data?.result?.cards.map((card) => (
+                        {data?.result?.cards.length ? data?.result.cards.map((card) => (
                             <CreditCard
                                 selected={card._id === transferDetails?.senderCard}
                                 onClick={() =>
@@ -37,10 +37,10 @@ function TransferPage() {
                             >
                                 <CreditCardInfo card={card}/>
                             </CreditCard>
-                        ))}
+                        )) : <Link href='/'><CreditCard flexible><CreditCardInfo/></CreditCard></Link>}
                     </div>
                     <div className="flex justify-end">
-                        <Link href="/transfer/user">
+                        <Link href={data?.result?.cards.length === 0 ? "" : "/transfer/user"}>
                             <GradientButton>Keyingisi</GradientButton>
                         </Link>
                     </div>

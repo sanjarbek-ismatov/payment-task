@@ -26,7 +26,9 @@ function Navbar() {
                         <ul className="font-medium flex items-center p-0  border-gray-100 rounded-lg space-x-8 mt-0 border-0 bg-white  dark:bg-gray-900 dark:border-gray-700">
                             {token !== "none" && (<>
                                 <li>
-                                    <GradientButton>Pul o'tkazish</GradientButton>
+                                    <Link href="/transfer">
+                                        <GradientButton>Pul o'tkazish</GradientButton>
+                                    </Link>
                                 </li>
 
                                 <li>
