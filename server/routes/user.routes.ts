@@ -1,4 +1,4 @@
-import express, {Response} from "express";
+import express, { Response } from "express";
 import { upload } from "../models/gridfs.model";
 import userValidator from "../helpers/validators/user";
 import { User } from "../models/user.model";
@@ -9,21 +9,25 @@ import { ExpressRequest } from "../types/express";
 import { CreditCard } from "../models/card.model";
 const router = express.Router();
 router.post("/signup", upload.single("image"), async (req, res) => {
+  console.log(req.body);
   const { error } = userValidator.registerValidator(req.body);
   if (error)
     return res
       .status(400)
       .send({ code: 400, message: error.details[0].message });
   const checkEmail = await User.findOne({ email: req.body.email });
+  console.log(checkEmail);
   if (checkEmail)
     return res
       .status(403)
       .send({ code: 403, message: "The email is already available" });
   const newUser = new User(req.body);
+  console.log(newUser);
   if (req.file) {
     newUser.image = req.file.filename;
   }
   newUser.password = await passwordGenerator(req.body.password);
+  console.log(newUser);
   await newUser.save();
   res.status(201).send({ code: 201, message: "User has been created" });
 });
@@ -71,18 +75,22 @@ router.post("/", async (req, res) => {
     return res.status(404).send({ code: 404, message: "User is not found" });
   return res.status(200).send({ code: 200, result: user });
 });
-router.put('/update', [upload.single('image'), authMiddleware], async (req: ExpressRequest, res: Response) => {
-  const user = req.user
-  if(!user) return
-  if(req.file){
-    user.image = req.file.filename
+router.put(
+  "/update",
+  [upload.single("image"), authMiddleware],
+  async (req: ExpressRequest, res: Response) => {
+    const user = req.user;
+    if (!user) return;
+    if (req.file) {
+      user.image = req.file.filename;
+    }
+    if (req.body.password) {
+      user.password = await passwordGenerator(req.body.password);
+    }
+    delete req.body.password;
+    Object.assign(user, req.body);
+    await user.save();
+    res.status(200).send({ code: 200, message: "DONE" });
   }
-  if(req.body.password){
-    user.password = await passwordGenerator(req.body.password)
-  }
-  delete req.body.password
-  Object.assign(user, req.body)
-  await user.save()
-  res.status(200).send({code: 200, message: "DONE"})
-})
+);
 export default router;
