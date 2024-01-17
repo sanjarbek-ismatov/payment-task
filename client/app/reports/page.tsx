@@ -11,10 +11,11 @@ import { convertDayToWeekDay, convertIndexToMonth } from "../utils/dateToRead";
 import TransferDetails from "@/app/reports/components/TransferDetails";
 import SEOHead from "@/app/components/SEOHead";
 import Spinner from "@/app/components/Spinner";
-
+import Image from "next/image";
+import EmptyIcon from "@/public/icons/empty-icon.png";
 function ReportsPage() {
   const transfersQuery = useTransfersQuery();
-  const { data: transfers } = useQuery("transfers", transfersQuery);
+  const { data: transfers, isLoading } = useQuery("transfers", transfersQuery);
   const userInfoQuery = useUserInfoQuery();
   const { data: user } = useQuery("user", userInfoQuery);
   const sortedByDates = useMemo(() => {
@@ -45,10 +46,17 @@ function ReportsPage() {
       </head>
       <div className="p-4">
         <Text size="text-md">Hisobotlar</Text>
-        {!transfers?.result?.length && (
+        {isLoading ? (
           <div className="w-full mt-24 flex justify-center">
             <Spinner size={"8"} />
           </div>
+        ) : (
+          !transfers?.result?.length && (
+            <div className="flex items-center flex-col w-full pt-24">
+              <Image className="w-56" src={EmptyIcon} alt="empty-icon" />
+              <Text size="text-lg">Hali o'tkazmalar mavjud emas!</Text>
+            </div>
+          )
         )}
         {sortedByDates &&
           Object.keys(sortedByDates).map((year) => {
