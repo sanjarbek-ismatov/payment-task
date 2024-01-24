@@ -4,16 +4,10 @@ import CreditCardInfo from "@/app/components/CreditCardInfo";
 import Modal from "@/app/components/Modal";
 import { useState } from "react";
 import Text from "@/app/components/Text";
-import { useQuery } from "react-query";
-import type { ServerResponse, UserInterface } from "./types";
-import { useUserInfoQuery } from "./utils/queryFunctions";
+import { useUserContext } from "./context/user/context";
 
 export default function Home() {
-  const userInfoQuery = useUserInfoQuery();
-  const { data } = useQuery<ServerResponse<UserInterface>>(
-    "user",
-    userInfoQuery
-  );
+  const { data } = useUserContext();
 
   const [showModal, setShowModal] = useState(false);
   return (

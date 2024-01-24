@@ -1,13 +1,12 @@
 "use client";
-import { useUserInfoQuery } from "@/app/utils/queryFunctions";
 import { useState } from "react";
-import { useQuery } from "react-query";
 import ImageComponent from "../Image";
 import Link from "next/link";
+import { useUserContext } from "@/app/context/user/context";
 
 function DropdownWithAvatar() {
-  const userInfoQuery = useUserInfoQuery();
-  const { data } = useQuery("user", userInfoQuery);
+  const { data } = useUserContext();
+  console.log(data);
   const [hiderClass, setHiderClass] = useState("hidden");
   const logOut = () => {
     localStorage.removeItem("x-token");

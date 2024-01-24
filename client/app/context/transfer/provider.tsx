@@ -1,15 +1,13 @@
 import { ReactNode, useEffect, useState } from "react";
 import { TransferContext } from "./context";
-import { useQuery } from "react-query";
-import { useUserInfoQuery } from "@/app/utils/queryFunctions";
 import { TransferInterface } from "@/app/types";
+import { useUserContext } from "../user/context";
 
 function TransferProvider({ children }: { children: ReactNode }) {
-  const userInfoQuery = useUserInfoQuery();
   const [transferDetails, setTransferDetails] = useState<
     TransferInterface<string>
   >({} as TransferInterface<string>);
-  const { data } = useQuery("user", userInfoQuery);
+  const { data } = useUserContext();
   const id = data?.result?.cards[0]?._id;
   useEffect(() => {
     setTransferDetails((prev) => ({

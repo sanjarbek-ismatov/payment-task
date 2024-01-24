@@ -2,16 +2,14 @@
 import Text from "../components/Text";
 import GradientButton from "@/app/components/GradientButton";
 import Link from "next/link";
-import { useQuery } from "react-query";
-import { useUserInfoQuery } from "../utils/queryFunctions";
 import CreditCard from "../components/CreditCard";
 import CreditCardInfo from "../components/CreditCardInfo";
 import { useTransferContext } from "@/app/context/transfer/context";
 import SEOHead from "@/app/components/SEOHead";
+import { useUserContext } from "../context/user/context";
 
 function TransferPage() {
-  const userInfoQuery = useUserInfoQuery();
-  const { data } = useQuery("user", userInfoQuery);
+  const { data } = useUserContext();
   const { transferDetails, setTransferDetails } = useTransferContext();
   return (
     <>

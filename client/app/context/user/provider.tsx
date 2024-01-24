@@ -1,16 +1,16 @@
 import { ReactNode } from "react";
 import { UserContext } from "./context";
-import { UserInterface } from "@/app/types";
+import { UserResponse } from "@/app/types";
 
 function UserProvider({
-  userData,
+  response,
   children,
 }: {
   children: ReactNode;
-  userData?: UserInterface;
+  response: UserResponse;
 }) {
   return (
-    <UserContext.Provider value={userData}>{children}</UserContext.Provider>
+    <UserContext.Provider value={response}>{children}</UserContext.Provider>
   );
 }
 export default UserProvider;

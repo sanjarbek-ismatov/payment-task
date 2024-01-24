@@ -1,7 +1,12 @@
-import type { UserInterface } from "@/app/types";
+import type {
+  CreditCardInterface,
+  ServerResponse,
+  UserInterface,
+  UserResponse,
+} from "@/app/types";
 import { createContext, useContext } from "react";
 
-const UserContext = createContext({} as UserInterface | undefined);
+const UserContext = createContext({} as UserResponse);
 
 const useUserContext = () => {
   return useContext(UserContext);

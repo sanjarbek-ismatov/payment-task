@@ -1,10 +1,7 @@
 "use client";
 import { TransferInterface } from "@/app/types";
 import { useQuery } from "react-query";
-import {
-  useTransfersQuery,
-  useUserInfoQuery,
-} from "@/app/utils/queryFunctions";
+import { useTransfersQuery } from "@/app/utils/queryFunctions";
 import Text from "../components/Text";
 import { useMemo } from "react";
 import { convertDayToWeekDay, convertIndexToMonth } from "../utils/dateToRead";
@@ -13,11 +10,11 @@ import SEOHead from "@/app/components/SEOHead";
 import Spinner from "@/app/components/Spinner";
 import Image from "next/image";
 import EmptyIcon from "@/public/icons/empty-icon.png";
+import { useUserContext } from "../context/user/context";
 function ReportsPage() {
   const transfersQuery = useTransfersQuery();
   const { data: transfers, isLoading } = useQuery("transfers", transfersQuery);
-  const userInfoQuery = useUserInfoQuery();
-  const { data: user } = useQuery("user", userInfoQuery);
+  const { data: user } = useUserContext();
   const sortedByDates = useMemo(() => {
     return transfers?.result?.reduce((previous, currentTransfer) => {
       const transferDate = new Date(currentTransfer.date);

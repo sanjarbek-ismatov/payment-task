@@ -1,6 +1,5 @@
 "use client";
-import { useQuery, useQueryClient } from "react-query";
-import { useUserInfoQuery } from "@/app/utils/queryFunctions";
+import { useQueryClient } from "react-query";
 import Text from "../components/Text";
 import { useMutationFunc, submitForm } from "@/app/utils/mutationFunctions";
 import Toast from "@/app/components/Toast";
@@ -10,10 +9,10 @@ import ContactSettings from "@/app/settings/components/ContactSettings";
 import PasswordSettings from "@/app/settings/components/PasswordSettings";
 import SubmitSettings from "@/app/settings/components/SubmitSettings";
 import SEOHead from "@/app/components/SEOHead";
+import { useUserContext } from "../context/user/context";
 
 function SettingsPage() {
-  const userInfoQuery = useUserInfoQuery();
-  const { data } = useQuery("user", userInfoQuery);
+  const { data } = useUserContext();
   const mutation = useMutationFunc("/api/user/update", "PUT", true);
   const queryClient = useQueryClient();
   const submit = submitForm(mutation, queryClient);
