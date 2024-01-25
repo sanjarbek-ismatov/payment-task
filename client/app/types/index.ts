@@ -46,6 +46,7 @@ type Mutation = UseMutationResult<
 interface UserResponse {
   data: ServerResponse<UserInterface<CreditCardInterface>> | undefined;
   refetch: () => void;
+  isLoading: boolean;
 }
 export type {
   UserInterface,

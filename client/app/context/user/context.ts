@@ -1,9 +1,4 @@
-import type {
-  CreditCardInterface,
-  ServerResponse,
-  UserInterface,
-  UserResponse,
-} from "@/app/types";
+import type { UserResponse } from "@/app/types";
 import { createContext, useContext } from "react";
 
 const UserContext = createContext({} as UserResponse);
