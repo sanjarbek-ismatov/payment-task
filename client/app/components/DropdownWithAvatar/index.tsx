@@ -6,7 +6,6 @@ import { useUserContext } from "@/app/context/user/context";
 
 function DropdownWithAvatar() {
   const { data } = useUserContext();
-  console.log(data);
   const [hiderClass, setHiderClass] = useState("hidden");
   const logOut = () => {
     localStorage.removeItem("x-token");
