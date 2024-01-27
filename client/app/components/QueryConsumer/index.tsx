@@ -37,15 +37,6 @@ function QueryConsumer({ children }: { children: ReactNode }) {
           ) : (
             <ErrorComponent />
           )}
-          {/* {isLoading ? (
-            <div className="w-full mt-24 flex justify-center">
-              <Spinner size={"8"} />
-            </div>
-          ) : data?.code === 200 ? (
-            children
-          ) : (
-            <ErrorComponent />
-          )} */}
         </div>
       </main>
       <ReactQueryDevtools initialIsOpen={false} />
