@@ -26,7 +26,18 @@ function QueryConsumer({ children }: { children: ReactNode }) {
       <main className="flex">
         <SideBar />
         <div className="w-full h-full">
-          {isLoading ? (
+          {(token === "none" &&
+            (path === "/auth/register" || path === "/auth/login")) ||
+          data?.code === 200 ? (
+            children
+          ) : isLoading ? (
+            <div className="w-full mt-24 flex justify-center">
+              <Spinner size={"8"} />
+            </div>
+          ) : (
+            <ErrorComponent />
+          )}
+          {/* {isLoading ? (
             <div className="w-full mt-24 flex justify-center">
               <Spinner size={"8"} />
             </div>
@@ -34,7 +45,7 @@ function QueryConsumer({ children }: { children: ReactNode }) {
             children
           ) : (
             <ErrorComponent />
-          )}
+          )} */}
         </div>
       </main>
       <ReactQueryDevtools initialIsOpen={false} />
