@@ -1,6 +1,6 @@
 "use client";
 import Text from "@/app/components/Text";
-import DefaultInput from "@/app/components/DefaultInput";
+import {Input as DefaultInput} from "@/app/components/DefaultInput";
 import CheckboxWithLabel from "@/app/components/CheckboxWithLabel";
 import Link from "next/link";
 import DefaultButton from "@/app/components/DefaultButton";

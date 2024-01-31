@@ -1,10 +1,9 @@
 "use client"
 import DefaultButton from "@/app/components/DefaultButton";
-import DefaultInput from "@/app/components/DefaultInput";
+import {Select, Input} from "@/app/components/DefaultInput"
 import FormCard from "@/app/components/FormCard";
 import Text from "../../components/Text";
 import LinkArrowRightIcon from "@/app/components/LinkArrowRightIcon";
-import Select from "@/app/components/Select";
 import Link from "next/link";
 import countries from "@/app/data/countries.json";
 import {submitForm, useMutationFunc} from "@/app/utils/mutationFunctions";
@@ -23,28 +22,28 @@ function RegisterPage() {
                 </div>
                 <div className="flex justify-center">
                     <FormCard onSubmit={formSubmit}>
-                        <DefaultInput
+                        <Input
                             name="fullName"
                             type="text"
                             label="Ism"
                             placeholder="To'liq ismingiz"
                             required
                         />
-                        <DefaultInput
+                        <Input
                             label="Telefon raqam"
                             name="phone"
                             type="tel"
                             placeholder="Telefon raqamingiz"
                             required
                         />
-                        <DefaultInput
+                        <Input
                             label="Email"
                             name="email"
                             type="email"
                             placeholder="Pochtangiz"
                             required
                         />
-                        <DefaultInput
+                        <Input
                             name="birthday"
                             type="date"
                             placeholder="Tug'ilgan sana"
@@ -58,7 +57,7 @@ function RegisterPage() {
                                 </option>
                             ))}
                         </Select>
-                        <DefaultInput name='password' type="password" label='Parol yarating' placeholder='**********'
+                        <Input name='password' type="password" label='Parol yarating' placeholder='**********'
                                       required/>
                         <div className="my-4">
                             <DefaultButton type="submit">Hisob yaratish</DefaultButton>

@@ -1,10 +1,9 @@
 import ProfileImageChanger from "@/app/settings/components/ProfileImageChanger";
-import DefaultInput from "@/app/components/DefaultInput";
+import {Input, Select} from "@/app/components/DefaultInput";
 import {UserInterface} from "@/app/types";
 import Card from "@/app/components/Card";
 import SettingCard from "@/app/settings/components/SettingCard";
 import Text from "@/app/components/Text";
-import Select from "@/app/components/Select";
 import countries from '@/app/data/countries.json'
 
 function BasicUserDetails({details}: { details: UserInterface }) {
@@ -17,13 +16,13 @@ function BasicUserDetails({details}: { details: UserInterface }) {
                 <ProfileImageChanger src={details.image}/>
                 <div className="flex-1 m-3">
                     <div className="flex flex-col lg:flex-row items-center w-full">
-                        <DefaultInput
+                        <Input
                             name="fullName"
                             type="text"
                             label="Ismingiz"
                             defaultValue={details.fullName}
                         />
-                        <DefaultInput
+                        <Input
                             name="birthday"
                             type="date"
                             label="Tug'ilgan sanangiz"

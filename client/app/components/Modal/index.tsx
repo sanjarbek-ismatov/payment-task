@@ -1,9 +1,9 @@
 "use client";
 import {Dispatch, SetStateAction, useState} from "react";
-import {useMutation, useQueryClient} from "react-query";
-import DefaultInput from "../DefaultInput";
+import {useQueryClient} from "react-query";
+import {Input as DefaultInput} from "../DefaultInput";
 import Toast from "../Toast";
-import {useMutationFunc, submitForm} from "@/app/utils/mutationFunctions";
+import {submitForm, useMutationFunc} from "@/app/utils/mutationFunctions";
 import handleInputChange from "@/app/utils/cardNumberSplit";
 
 function Modal({

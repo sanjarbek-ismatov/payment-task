@@ -1,7 +1,7 @@
 import Card from "@/app/components/Card";
 import Text from "@/app/components/Text";
 import SettingCard from "@/app/settings/components/SettingCard";
-import DefaultInput from "@/app/components/DefaultInput";
+import {Input as DefaultInput} from "@/app/components/DefaultInput";
 
 function PasswordSettings() {
     return (
