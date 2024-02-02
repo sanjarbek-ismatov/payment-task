@@ -11,11 +11,17 @@ router.post("/add", async (req, res) => {
       .status(401)
       .send({ code: 400, message: error.details[0].message });
   const { type, body, to } = req.body;
-  const foundUser = await User.findById(to);
-  if (!foundUser) {
-    // Should be worked for here
-  }
   const newNotification = new Notification({ type, body, to });
+  if (to !== "all") {
+    const foundUser = await User.findById(to);
+    if (!foundUser)
+      return res
+        .status(404)
+        .send({ code: 404, message: "The User doesn't exist" });
+    foundUser.notifications.push(newNotification._id);
+    await foundUser.save();
+  }
+
   await newNotification.save();
   res.status(201).send({ code: 201, message: "Created!" });
 });
