@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+import { NotificationSchema } from "../types/models";
 
-const notificationSchema = new mongoose.Schema({
+const notificationSchema = new mongoose.Schema<NotificationSchema>({
   date: {
     type: Date,
     default: function () {
@@ -13,13 +14,20 @@ const notificationSchema = new mongoose.Schema({
     required: true,
   },
   body: String,
-  wasRead: {
-    type: Boolean,
-    default: false,
+  whoRead: {
+    type: [mongoose.SchemaTypes.ObjectId],
+    ref: "user",
   },
   to: {
     type: mongoose.SchemaTypes.ObjectId,
     ref: "user",
   },
+  forEveryone: {
+    type: Boolean,
+    default: false,
+  },
 });
-export const Notification = mongoose.model("notification", notificationSchema);
+export const Notification = mongoose.model<NotificationSchema>(
+  "notification",
+  notificationSchema
+);
