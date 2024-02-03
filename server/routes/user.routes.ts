@@ -70,7 +70,8 @@ router.post("/", async (req, res) => {
   delete req.body.type;
   const user = await User.findOne(req.body)
     .select("-password -payments")
-    .populate({ path: "cards", select: "-cvv -expirationDate" });
+    .populate({ path: "cards", select: "-cvv -expirationDate" })
+    .populate({ path: "notifications" });
   if (!user)
     return res.status(404).send({ code: 404, message: "User is not found" });
   return res.status(200).send({ code: 200, result: user });

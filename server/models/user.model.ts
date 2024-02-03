@@ -19,7 +19,7 @@ const userSchema: Schema<UserSchema> = new mongoose.Schema({
   },
   notifications: {
     type: [mongoose.SchemaTypes.ObjectId],
-    ref: "user",
+    ref: "notification",
   },
 });
 export const User = mongoose.model<UserSchema>("user", userSchema);
