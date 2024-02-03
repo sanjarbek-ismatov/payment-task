@@ -35,10 +35,12 @@ interface CreditCardSchema {
 }
 
 interface NotificationSchema {
-  date: string;
+  date: Date;
   type: "transfer" | "news" | "warning";
   body: string;
-  wasRead: boolean;
+  to: Types.ObjectId;
+  whoRead: Types.ObjectId[];
+  forEveryone: boolean;
 }
 
 export type {
