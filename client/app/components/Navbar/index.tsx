@@ -29,12 +29,6 @@ function Navbar() {
                     <i className="fa-regular fa-bell text-white text-lg cursor-pointer"></i>
                   </li>
                   <li>
-                    <Link href="/transfer">
-                      <GradientButton>Pul o'tkazish</GradientButton>
-                    </Link>
-                  </li>
-
-                  <li>
                     <DropdownWithAvatar />
                   </li>
                 </>

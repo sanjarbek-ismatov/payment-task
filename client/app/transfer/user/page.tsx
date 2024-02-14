@@ -26,9 +26,9 @@ function TransferUserPage() {
   return (
     <div className="p-4">
       <Text>Qabul qiluvchini tanlang</Text>
-      <div className="mt-3 w-full">
+      <div className="w-full">
         <form
-          className="relative z-0 my-12 w-[600px]"
+          className="relative z-0 my-6 max-w-[600px] w-full"
           onSubmit={(event) => {
             event.preventDefault();
             mutation
@@ -74,7 +74,7 @@ function TransferUserPage() {
             ) : (
               <>
                 <Text>{data.fullName}ning mavjud kartalari:</Text>
-                <div className="flex my-3">
+                <div className="flex my-3 md:flex-nowrap flex-wrap">
                   {data.cards.map((card) => (
                     <CreditCard
                       selected={card._id === transferDetails?.receiverCard}

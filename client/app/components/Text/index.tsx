@@ -8,10 +8,12 @@ function Text({
   return (
     <p
       {...props}
-      className={`${size ?? "text-4xl"} font-extrabold dark:text-white`}
+      className={`${
+        size ?? "lg:text-4xl"
+      } md:text-2xl sm:text-xl text-sm font-extrabold dark:text-white`}
     >
       {children}
     </p>
   );
 }
-export default Text
+export default Text;

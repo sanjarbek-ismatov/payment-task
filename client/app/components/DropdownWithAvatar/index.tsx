@@ -28,9 +28,8 @@ function DropdownWithAvatar() {
             <ImageComponent
               url={data?.result?.image}
               alt="user"
-              className="w-8 h-8 mr-2 rounded-full object-cover"
+              className="w-8 h-8  rounded-full object-cover"
             />
-            <span className="hidden sm:inline">{data?.result?.fullName}</span>
             <ArrowIcon />
           </button>
 

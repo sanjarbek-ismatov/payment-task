@@ -45,7 +45,7 @@ function TransferPage() {
               </Link>
             )}
           </div>
-          <div className="flex justify-end">
+          <div className="flex justify-end my-3">
             <Link
               href={data?.result?.cards.length === 0 ? "" : "/transfer/user"}
             >
