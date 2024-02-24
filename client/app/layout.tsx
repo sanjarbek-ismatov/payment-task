@@ -6,6 +6,7 @@ import React from "react";
 import SEOHead from "@/app/components/SEOHead";
 import MainContent from "@/app/components/MainContent";
 import ServerContextProvider from "@/app/context/server/provider";
+import Toast from "./components/Toast-test";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,6 +36,7 @@ export default function RootLayout({
       >
         <ServerContextProvider url={serverUrl}>
           <MainContent>{children}</MainContent>
+          <Toast />
         </ServerContextProvider>
         {/*<div className="fixed top-0 left-0 z-50 bg-pink-500 text-white shadow-md px-2 rounded-bl font-mono">*/}
         {/*    <span className="sm:hidden">default</span>*/}
