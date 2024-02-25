@@ -6,6 +6,7 @@ import {getToken} from "./getToken";
 import {QueryClient, useMutation} from "react-query";
 import {useServer} from "@/app/context/server";
 import {useToastState} from "@/app/context/toast";
+import {toastOptions} from "@/app/data/variables";
 
 export function useMutationFunc<B extends BodyInit, R = null>(
     url: string,
@@ -98,23 +99,22 @@ export const useSubmitData = (
     body?: any,
     ...queries: string[]
 ) => {
-    toast.loading("lolool");
-    //   return toast.promise(
-    //     async () => {
-    //       const promise = mutation.mutateAsync(body, {
-    //         onSuccess() {
-    //           queries.forEach((query) => {
-    //             queryClient?.invalidateQueries(query);
-    //           });
-    //         },
-    //       });
-    //       return promise;
-    //     },
-    //     {
-    //       success: "Bajarildi",
-    //       error: "Nimadir xato ketdi",
-    //       pending: "Bajarilmoqda...",
-    //     },
-    //     toastOptions
-    //   );
+    return toast.promise(
+        async () => {
+            const promise = mutation.mutateAsync(body, {
+                onSuccess() {
+                    queries.forEach((query) => {
+                        queryClient?.invalidateQueries(query);
+                    });
+                },
+            });
+            return promise;
+        },
+        {
+            success: "Bajarildi",
+            error: "Nimadir xato ketdi",
+            pending: "Bajarilmoqda...",
+        },
+        toastOptions
+    );
 };
