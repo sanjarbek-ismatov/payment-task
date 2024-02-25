@@ -56,7 +56,6 @@ export const useSubmitForm = (
     ...cbs: (() => void)[]
 ) => {
     const [, dispatch] = useToastState()
-
     return async function (event: FormEvent) {
         event.preventDefault();
         dispatch({type: "loading", payload: {message: "Loading..."}})

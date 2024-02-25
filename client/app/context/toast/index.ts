@@ -1,12 +1,12 @@
 import {createContext, useReducer} from "react";
 import {toast} from "react-toastify";
-import {toastOptions} from "@/app/data/variables";
 
 type ToastStatus = "none" | "loading" | "success" | "error";
 type ToastPayload = {
     message?: string;
     error?: string;
     code?: number;
+    toastId?: string | number
 };
 type ToastState = {
     status: ToastStatus;
@@ -21,10 +21,11 @@ const ToastContext = createContext({status: "none"} as ToastState);
 const useToastState = () => {
     function reducer(state: ToastState, action: ToastAction): ToastState {
         switch (action.type) {
-            case "loading":
             case "success":
             case "error":
-                toast[action.type](action.payload?.message || action.payload?.error, toastOptions)
+                action.payload?.toastId && toast.update(action.payload?.toastId, {
+                    type: action.type, data: action.payload?.message
+                })
                 return {
                     status: action.type,
                     ...action.payload,
