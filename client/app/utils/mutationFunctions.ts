@@ -57,36 +57,34 @@ export const submitForm = (
 ) => {
   return async function (event: FormEvent) {
     event.preventDefault();
-    toast.loading("Lololo");
-    /* toast.promise(
-      async () => {
-        const formData = new FormData(event.currentTarget as HTMLFormElement);
-        const currentFormElement = event.currentTarget as HTMLFormElement;
-        if (currentFormElement.cardNumber) {
-          formData.set(
-            "cardNumber",
-            currentFormElement.cardNumber.value.split(" ").join("")
-          );
-        }
-        return mutation.mutateAsync(formData, {
-          onSuccess() {
-            queries?.forEach((query) => {
-              queryClient?.invalidateQueries(query);
-            });
-            for (const cb of cbs) {
-              cb();
-            }
-          },
+    //  toast.promise(
+    //   async () => {
+    const formData = new FormData(event.currentTarget as HTMLFormElement);
+    const currentFormElement = event.currentTarget as HTMLFormElement;
+    if (currentFormElement.cardNumber) {
+      formData.set(
+        "cardNumber",
+        currentFormElement.cardNumber.value.split(" ").join("")
+      );
+    }
+    return mutation.mutateAsync(formData, {
+      onSuccess() {
+        queries?.forEach((query) => {
+          queryClient?.invalidateQueries(query);
         });
+        for (const cb of cbs) {
+          cb();
+        }
       },
-      {
-        success: "Bajarildi",
-        error: "Nimadir xato ketdi",
-        pending: "Bajarilmoqda...",
-      },
-      toastOptions
-     );
-     */
+    });
+    //   },
+    //   {
+    //     success: "Bajarildi",
+    //     error: "Nimadir xato ketdi",
+    //     pending: "Bajarilmoqda...",
+    //   },
+    //   toastOptions
+    //  );
   };
 };
 
