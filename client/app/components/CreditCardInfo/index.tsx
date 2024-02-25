@@ -1,5 +1,5 @@
 import {CreditCardInterface} from "@/app/types";
-import {submitData, useMutationFunc} from "@/app/utils/mutationFunctions";
+import {useMutationFunc, useSubmitData} from "@/app/utils/mutationFunctions";
 import {useQueryClient} from "react-query";
 import Spinner from "@/app/components/Spinner";
 
@@ -14,7 +14,7 @@ function CreditCardInfo({
 }) {
     const mutation = useMutationFunc("/api/card/delete", "DELETE", true)
     const queryClient = useQueryClient();
-    const submit = submitData.bind(
+    const submit = useSubmitData.bind(
         null,
         mutation,
         queryClient,

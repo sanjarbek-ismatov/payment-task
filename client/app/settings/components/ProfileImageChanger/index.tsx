@@ -1,15 +1,15 @@
 "use client"
 import ImageComponent from "@/app/components/Image";
 import {ChangeEvent, useState} from "react";
-import {useMutation, useQueryClient} from "react-query";
-import {useMutationFunc, submitData} from "@/app/utils/mutationFunctions";
+import {useQueryClient} from "react-query";
+import {useMutationFunc, useSubmitData} from "@/app/utils/mutationFunctions";
 
 function ProfileImageChanger({src}: { src?: string }) {
     const [imageSrc, setImageSrc] = useState(src)
     const [isLocal, setIsLocal] = useState(!Boolean(src))
     const queryClient = useQueryClient()
     const mutation = useMutationFunc("/api/user/update", "PUT", true)
-    const submitNewImage = submitData.bind(null, mutation, queryClient)
+    const submitNewImage = useSubmitData.bind(null, mutation, queryClient)
 
     function handleChangeImage(event: ChangeEvent<HTMLInputElement>) {
         const files = event?.target?.files as FileList

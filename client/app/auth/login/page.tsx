@@ -9,13 +9,13 @@ import LinkArrowRightIcon from "@/app/components/LinkArrowRightIcon";
 import {useQueryClient} from "react-query";
 import {useState} from "react";
 import Toast from "@/app/components/Toast";
-import {submitForm, useMutationFunc} from "@/app/utils/mutationFunctions";
+import {useMutationFunc, useSubmitForm} from "@/app/utils/mutationFunctions";
 
 function LoginPage() {
     const queryClient = useQueryClient()
     const [rememberToken, setRememberToken] = useState(false);
     const mutation = useMutationFunc("/api/user/signing", "POST", true, rememberToken ? "local" : "session")
-    const formSubmit = submitForm(mutation, queryClient, [],
+    const formSubmit = useSubmitForm(mutation, queryClient, [],
         () => window.location.href = "/"
     )
     return (
