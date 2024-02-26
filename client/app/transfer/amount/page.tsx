@@ -18,7 +18,7 @@ function AmountPage() {
     const mutation = useMutationFunc("/api/transfer/new", "POST", true);
 
     const queryClient = useQueryClient();
-    const submit = useSubmitData.bind(null, mutation, queryClient);
+    const submit = useSubmitData(mutation, queryClient);
     const {transferDetails} = useTransferContext();
     const {data: senderCard} = useQuery(
         "user-card",

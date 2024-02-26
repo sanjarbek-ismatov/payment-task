@@ -1,12 +1,10 @@
 "use client";
 import {FormEvent} from "react";
-import {toast} from "react-toastify";
 import {Mutation, ServerResponse} from "../types";
 import {getToken} from "./getToken";
 import {QueryClient, useMutation} from "react-query";
 import {useServer} from "@/app/context/server";
 import {useToastState} from "@/app/context/toast";
-import {toastOptions} from "@/app/data/variables";
 
 export function useMutationFunc<B extends BodyInit, R = null>(
     url: string,
@@ -56,10 +54,10 @@ export const useSubmitForm = (
     queries?: string[],
     ...cbs: (() => void)[]
 ) => {
-    const [, dispatch] = useToastState()
+    const [, dispatch] = useToastState();
     return async function (event: FormEvent) {
         event.preventDefault();
-        dispatch({type: "loading", payload: {message: "Loading..."}})
+        dispatch({type: "loading", payload: {message: "Loading..."}});
         const formData = new FormData(event.currentTarget as HTMLFormElement);
         const currentFormElement = event.currentTarget as HTMLFormElement;
         if (currentFormElement.cardNumber) {
@@ -68,53 +66,44 @@ export const useSubmitForm = (
                 currentFormElement.cardNumber.value.split(" ").join("")
             );
         }
-        mutation.mutateAsync(formData, {
-            onSuccess() {
-                queries?.forEach((query) => {
-                    queryClient?.invalidateQueries(query);
-                });
-                for (const cb of cbs) {
-                    cb();
+        mutation
+            .mutateAsync(formData, {
+                onSuccess() {
+                    queries?.forEach((query) => {
+                        queryClient?.invalidateQueries(query);
+                    });
+                    for (const cb of cbs) {
+                        cb();
+                    }
+                },
+            })
+            .then(
+                (result) =>
+                    dispatch({
+                        type: "success",
+                        payload: result,
+                    }),
+                (error) => {
+                    dispatch({
+                        type: "error",
+                        payload: error,
+                    });
                 }
-            },
-        }).then(
-            result => dispatch({
-                type: "success",
-                payload: result
-            }),
-            error => {
-                dispatch({
-                    type: "error",
-                    payload: error
-                })
-            }
-        )
-
+            );
     };
 };
 
 export const useSubmitData = (
     mutation: Mutation,
     queryClient?: QueryClient,
-    body?: any,
-    ...queries: string[]
 ) => {
-    return toast.promise(
-        async () => {
-            const promise = mutation.mutateAsync(body, {
-                onSuccess() {
-                    queries.forEach((query) => {
-                        queryClient?.invalidateQueries(query);
-                    });
-                },
-            });
-            return promise;
-        },
-        {
-            success: "Bajarildi",
-            error: "Nimadir xato ketdi",
-            pending: "Bajarilmoqda...",
-        },
-        toastOptions
-    );
+    return function (body?: any, ...queries: string[]) {
+        return mutation.mutateAsync(body, {
+            onSuccess() {
+                queries.forEach((query) => {
+                    queryClient?.invalidateQueries(query);
+                });
+            },
+        });
+    }
 };

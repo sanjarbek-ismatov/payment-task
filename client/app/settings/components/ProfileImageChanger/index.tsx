@@ -9,7 +9,7 @@ function ProfileImageChanger({src}: { src?: string }) {
     const [isLocal, setIsLocal] = useState(!Boolean(src))
     const queryClient = useQueryClient()
     const mutation = useMutationFunc("/api/user/update", "PUT", true)
-    const submitNewImage = useSubmitData.bind(null, mutation, queryClient)
+    const submitNewImage = useSubmitData(mutation, queryClient)
 
     function handleChangeImage(event: ChangeEvent<HTMLInputElement>) {
         const files = event?.target?.files as FileList

@@ -14,19 +14,17 @@ function CreditCardInfo({
 }) {
     const mutation = useMutationFunc("/api/card/delete", "DELETE", true)
     const queryClient = useQueryClient();
-    const submit = useSubmitData.bind(
-        null,
+    const submit = useSubmitData(
         mutation,
         queryClient,
-        {_id: card?._id},
-        "user",
     );
 
     return (
         <>
             {deletable && (
                 <span
-                    onClick={() => submit()}
+                    onClick={() => submit({_id: card?._id},
+                        "user",)}
                     className="group-hover:flex hidden justify-center items-center absolute right-[-10px] top-[-10px] h-[25px] w-[25px] rounded-full bg-red-500 text-white"
                 >
           <i className="fa-solid fa-x"></i>
