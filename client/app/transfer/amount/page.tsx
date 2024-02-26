@@ -42,7 +42,7 @@ function AmountPage() {
             <div className="flex flex-wrap ">
                 <div className='flex flex-wrap md:justify-normal justify-center'>
                     <div className="mt-6">
-                        <h4 className="sm:mx-3 mx-7 dark:text-white text-gray-900">
+                        <h4 className="sm:mx-3  dark:text-white text-gray-900">
                             Sizning kartangiz
                         </h4>
                         <CreditCard>
@@ -50,7 +50,7 @@ function AmountPage() {
                         </CreditCard>
                     </div>
                     <div className="mt-6">
-                        <h4 className="mx-3 mx-7 dark:text-white text-gray-900">
+                        <h4 className="mx-3  dark:text-white text-gray-900">
                             Sizning kartangiz
                         </h4>
                         <CreditCard>

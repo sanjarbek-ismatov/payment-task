@@ -10,11 +10,11 @@ function CreditCard({
         <div
             className={`${
                 selected ? "border-green-500" : "border-transparent"
-            } border-2 rounded block w-auto h-auto  ml-5 mr-5 sm:m-0`}
+            } border-2 rounded block sm:ml-5 sm:mr-5  sm:w-[390px] w-full h-[250px]`}
         >
             <div
                 {...rest}
-                className={`group cursor-pointer m-2 sm:w-[390px] w-[350px] h-[220px] sm:h-[250px] p-6 relative bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700`}
+                className={`group cursor-pointer m-2  p-6 relative bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700`}
             >
                 {children ? (
                     children
