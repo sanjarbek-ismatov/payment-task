@@ -39,24 +39,26 @@ function AmountPage() {
 
     return (
         <>
-            <div className="flex">
-                <div className="mt-6">
-                    <h4 className="mx-3 dark:text-white text-gray-900">
-                        Sizning kartangiz
-                    </h4>
-                    <CreditCard>
-                        <CreditCardInfo card={senderCard?.result}/>
-                    </CreditCard>
+            <div className="flex flex-wrap ">
+                <div className='flex flex-wrap md:justify-normal justify-center'>
+                    <div className="mt-6">
+                        <h4 className="sm:mx-3 mx-7 dark:text-white text-gray-900">
+                            Sizning kartangiz
+                        </h4>
+                        <CreditCard>
+                            <CreditCardInfo card={senderCard?.result}/>
+                        </CreditCard>
+                    </div>
+                    <div className="mt-6">
+                        <h4 className="mx-3 mx-7 dark:text-white text-gray-900">
+                            Sizning kartangiz
+                        </h4>
+                        <CreditCard>
+                            <CreditCardInfo card={receiverCard?.result}/>
+                        </CreditCard>
+                    </div>
                 </div>
-                <div className="mt-6">
-                    <h4 className="mx-3 dark:text-white text-gray-900">
-                        Sizning kartangiz
-                    </h4>
-                    <CreditCard>
-                        <CreditCardInfo card={receiverCard?.result}/>
-                    </CreditCard>
-                </div>
-                <div className="mt-6 w-[400px]">
+                <div className="mt-6 sm:w-[400px] w-full sm:mx-auto mx-7">
                     <label
                         htmlFor="large-input"
                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
