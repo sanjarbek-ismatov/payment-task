@@ -10,7 +10,7 @@ function CreditCard({
     <div
       className={`${
         selected ? "border-green-500" : "border-transparent"
-      } border-2 rounded block sm:ml-5 sm:mr-5 p-2  sm:w-[390px] w-full max-w-[390px] h-[250px]`}
+      } border-2 rounded block sm:ml-2 sm:mr-2 p-2  sm:w-[390px] w-full max-w-[350px] h-[250px]`}
     >
       <div
         {...rest}
