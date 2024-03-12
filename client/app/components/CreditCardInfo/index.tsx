@@ -12,7 +12,7 @@ function CreditCardInfo({
   deletable?: boolean;
   isloading?: boolean;
 }) {
-  const mutation = useMutationFunc("/api/card/delete", "DELETE", true);
+  const mutation = useMutationFunc<any>("/api/card/delete", "DELETE", true);
   const queryClient = useQueryClient();
   const submit = useSubmitData(mutation, queryClient);
 

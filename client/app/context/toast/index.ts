@@ -1,44 +1,43 @@
-import {createContext, useReducer, useState} from "react";
-import {toast} from "react-toastify";
+import { createContext, useReducer, useState } from "react";
+import { toast } from "react-toastify";
 
 type ToastStatus = "none" | "loading" | "success" | "error";
 type ToastPayload = {
-    message?: string;
-    code?: number;
+  message?: string;
 };
 type ToastState = {
-    status: ToastStatus;
+  status: ToastStatus;
 } & ToastPayload;
 
 interface ToastAction {
-    type: ToastStatus;
-    payload?: ToastPayload;
+  type: ToastStatus;
+  payload?: ToastPayload;
 }
 
-const ToastContext = createContext({status: "none"} as ToastState);
+const ToastContext = createContext({ status: "none" } as ToastState);
 const useToastState = () => {
-    const [toastId, setToastId] = useState<string | number>()
+  const [toastId, setToastId] = useState<string | number>();
 
-    function reducer(_: ToastState, action: ToastAction): ToastState {
-        switch (action.type) {
-            case "loading":
-            case "success":
-            case "error":
-                toastId && toast.dismiss(toastId)
-                const newToast = toast[action.type](`${action.payload?.message}`)
-                setToastId(newToast)
+  function reducer(_: ToastState, action: ToastAction): ToastState {
+    switch (action.type) {
+      case "loading":
+      case "success":
+      case "error":
+        toastId && toast.dismiss(toastId);
+        const newToast = toast[action.type](`${action.payload?.message}`);
+        setToastId(newToast);
 
-                return {
-                    status: action.type,
-                    ...action.payload,
-                }
-            default:
-                return {status: "none"};
-        }
+        return {
+          status: action.type,
+          ...action.payload,
+        };
+      default:
+        return { status: "none" };
     }
+  }
 
-    const [state, dispatch] = useReducer(reducer, {status: "none"});
+  const [state, dispatch] = useReducer(reducer, { status: "none" });
 
-    return [state, dispatch] as [typeof state, typeof dispatch]
+  return [state, dispatch] as [typeof state, typeof dispatch];
 };
-export {ToastContext as default, useToastState};
+export { ToastContext as default, useToastState };
